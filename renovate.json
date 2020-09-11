@@ -8,8 +8,6 @@
   "semanticCommits": true,
   "separateMajorMinor": false,
   "labels": ["dependency-upgrade", "unassigned"],
-  "lazyGrouping": false,
-  "masterIssue": true,
   "prBodyNotes": [
     "{{#if isMajor}}:warning: THIS IS A MAJOR VERSION UPDATE :warning:{{/if}}",
     "Before merging, *always* check with the release notes if any other changes need to be done."
@@ -36,7 +34,6 @@
     "fileMatch": ["kustomization\\.y.?ml$"]
   },
   "packageRules": [
-    // Scripts
     {
       "languages": ["python"],
       "packagePatterns": [".*"],
@@ -49,7 +46,6 @@
       "labels": ["dependency-upgrade", "group:golang", "component:internal"],
       "reviewers": ["team:infra-internal-comp-dri"]
     },
-    // Terraform
     {
       "datasources": ["terraform-provider"],
       "packagePatterns": [".*"],
@@ -63,7 +59,6 @@
       "labels": ["dependency-upgrade", "group:terraform", "component:gitops"],
       "reviewers": ["team:infra-gitops-dri"]
     },
-    // Apps
     {
       "datasources": ["docker"],
       "packagePatterns": ["kubernetesui"],
@@ -198,7 +193,6 @@
       "labels": ["dependency-upgrade", "app:grafana", "component:monitoring"],
       "reviewers": ["team:infra-monitoring-dri"]
     },
-    // Apps: Prometheus group
     {
       "datasources": ["docker"],
       "packagePatterns": ["alertmanager"],
@@ -255,7 +249,6 @@
       ],
       "reviewers": ["team:infra-monitoring-dri"]
     },
-    // App: Jenkins
     {
       "datasources": ["docker"],
       "packagePatterns": ["jenkins/jenkins"],
@@ -271,7 +264,6 @@
       "reviewers": ["team:infra-ci-dri"],
       "extends": ["schedule:weekly"]
     },
-    // Private Docker registries
     {
       "datasources": ["docker"],
       "packagePatterns": [
