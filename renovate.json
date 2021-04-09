@@ -59,15 +59,6 @@
     },
     {
       "datasources": ["docker"],
-      "packagePatterns": ["kubernetesui"],
-      "labels": [
-        "dependency-upgrade",
-        "app:kubernetesui",
-        "component:internal"
-      ]
-    },
-    {
-      "datasources": ["docker"],
       "packagePatterns": ["kubectl"],
       "labels": ["dependency-upgrade", "app:kubectl"]
     },
@@ -105,19 +96,6 @@
       "datasources": ["docker"],
       "packagePatterns": ["kubernetes-replicator"],
       "labels": ["dependency-upgrade", "app:kubernetes-replicator"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["kube-janitor"],
-      "labels": ["dependency-upgrade", "team:consulting", "app:kube-janitor"],
-      "reviewers": ["team:consulting-dri"]
-    },
-    {
-      "datasources": ["docker"],
-      "paths": ["/showrooms/", "/showrooms-stage/"],
-      "groupName": "Consulting showrooms components",
-      "labels": ["dependency-upgrade", "team:consulting", "app:showrooms"],
-      "reviewers": ["team:consulting-dri"]
     },
     {
       "datasources": ["docker"],
