@@ -8,7 +8,8 @@
   "commitBodyTable": true,
   "semanticCommits": true,
   "separateMajorMinor": false,
-  "labels": ["dependency-upgrade", "unassigned"],
+  "labels": ["dependency-upgrade"],
+  "reviewers": ["team:infra-maintenance-dri"],
   "prBodyNotes": [
     "{{#if isMajor}}:warning: THIS IS A MAJOR VERSION UPDATE :warning:{{/if}}",
     "Before merging, *always* check with the release notes if any other changes need to be done."
@@ -38,27 +39,23 @@
     {
       "languages": ["python"],
       "packagePatterns": [".*"],
-      "labels": ["dependency-upgrade", "group:python", "component:internal"],
-      "reviewers": ["team:infra-internal-comp-dri"]
+      "labels": ["dependency-upgrade", "group:python", "component:internal"]
     },
     {
       "languages": ["golang"],
       "packagePatterns": [".*"],
-      "labels": ["dependency-upgrade", "group:golang", "component:internal"],
-      "reviewers": ["team:infra-internal-comp-dri"]
+      "labels": ["dependency-upgrade", "group:golang", "component:internal"]
     },
     {
       "datasources": ["terraform-provider"],
       "packagePatterns": [".*"],
       "labels": ["dependency-upgrade", "group:terraform", "component:internal"],
-      "reviewers": ["team:infra-internal-comp-dri"],
       "extends": ["schedule:monthly"]
     },
     {
       "datasources": ["terraform-provider"],
       "packagePatterns": ["vault"],
-      "labels": ["dependency-upgrade", "group:terraform", "component:gitops"],
-      "reviewers": ["team:infra-gitops-dri"]
+      "labels": ["dependency-upgrade", "group:terraform", "component:gitops"]
     },
     {
       "datasources": ["docker"],
@@ -67,55 +64,47 @@
         "dependency-upgrade",
         "app:kubernetesui",
         "component:internal"
-      ],
-      "reviewers": ["team:infra-internal-comp-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["kubectl"],
-      "labels": ["dependency-upgrade", "app:kubectl"],
-      "reviewers": ["team:infra-cluster-dri"]
+      "labels": ["dependency-upgrade", "app:kubectl"]
     },
     {
       "datasources": ["docker"],
       "paths": ["/ci/", "/stage.ci/"],
       "groupName": "CI components",
-      "labels": ["dependency-upgrade", "component:ci"],
-      "reviewers": ["team:infra-ci-dri"]
+      "labels": ["dependency-upgrade", "component:ci"]
     },
     {
       "datasources": ["docker"],
       "paths": ["/kustomize/harbor/"],
       "groupName": "Harbor additional components",
-      "labels": ["dependency-upgrade", "app:harbor", "component:repo"],
-      "reviewers": ["team:infra-repo-dri"]
+      "labels": ["dependency-upgrade", "app:harbor", "component:repo"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["goharbor"],
       "groupName": "Harbor components",
-      "labels": ["dependency-upgrade", "app:harbor", "component:repo"],
-      "reviewers": ["team:infra-repo-dri"]
+      "labels": ["dependency-upgrade", "app:harbor", "component:repo"]
     },
     {
       "datasources": ["docker"],
       "paths": ["nexus/"],
       "groupName": "Nexus components",
-      "labels": ["dependency-upgrade", "app:nexus", "component:repo"],
-      "reviewers": ["team:infra-repo-dri"]
+      "labels": ["dependency-upgrade", "app:nexus", "component:repo"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["jenkinsxio/bucketrepo"],
       "groupName": "PR dynamic repository components",
-      "labels": ["dependency-upgrade", "app:bucketrepo", "component:repo"],
-      "reviewers": ["team:infra-repo-dri"]
+      "labels": ["dependency-upgrade", "app:bucketrepo", "component:repo"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["kubernetes-replicator"],
-      "labels": ["dependency-upgrade", "app:kubernetes-replicator"],
-      "reviewers": ["team:infra-internal-comp-dri"]
+      "labels": ["dependency-upgrade", "app:kubernetes-replicator"]
     },
     {
       "datasources": ["docker"],
@@ -134,22 +123,19 @@
       "datasources": ["docker"],
       "packagePatterns": ["vouch"],
       "groupName": "Vouch components",
-      "labels": ["dependency-upgrade", "app:vouch", "component:ingress"],
-      "reviewers": ["team:infra-ingress-dri"]
+      "labels": ["dependency-upgrade", "app:vouch", "component:ingress"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["external-dns"],
       "groupName": "external-dns components",
-      "labels": ["dependency-upgrade", "app:external-dns", "component:ingress"],
-      "reviewers": ["team:infra-ingress-dri"]
+      "labels": ["dependency-upgrade", "app:external-dns", "component:ingress"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["cert-manager"],
       "groupName": "cert-manager components",
-      "labels": ["dependency-upgrade", "app:cert-manager", "component:ingress"],
-      "reviewers": ["team:infra-ingress-dri"]
+      "labels": ["dependency-upgrade", "app:cert-manager", "component:ingress"]
     },
     {
       "datasources": ["docker"],
@@ -159,22 +145,19 @@
         "dependency-upgrade",
         "app:nginx-ingress",
         "component:ingress"
-      ],
-      "reviewers": ["team:infra-ingress-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["vault"],
       "groupName": "Vault components",
-      "labels": ["dependency-upgrade", "app:vault", "component:gitops"],
-      "reviewers": ["team:infra-gitops-dri"]
+      "labels": ["dependency-upgrade", "app:vault", "component:gitops"]
     },
     {
       "datasources": ["docker"],
       "paths": ["argocd"],
       "groupName": "ArgoCD components",
-      "labels": ["dependency-upgrade", "app:argocd", "component:gitops"],
-      "reviewers": ["team:infra-gitops-dri"]
+      "labels": ["dependency-upgrade", "app:argocd", "component:gitops"]
     },
     {
       "datasources": ["docker"],
@@ -184,15 +167,13 @@
         "dependency-upgrade",
         "app:kube-state-metrics",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["grafana"],
       "groupName": "Grafana components",
-      "labels": ["dependency-upgrade", "app:grafana", "component:monitoring"],
-      "reviewers": ["team:infra-monitoring-dri"]
+      "labels": ["dependency-upgrade", "app:grafana", "component:monitoring"]
     },
     {
       "datasources": ["docker"],
@@ -202,8 +183,7 @@
         "app:alertmanager",
         "group:prometheus",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
@@ -213,8 +193,7 @@
         "app:node-exporter",
         "group:prometheus",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
@@ -224,8 +203,7 @@
         "app:blackbox-exporter",
         "group:prometheus",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
@@ -235,8 +213,7 @@
         "app:prometheus",
         "group:prometheus",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
@@ -247,22 +224,19 @@
         "app:configmap-reloader",
         "group:prometheus",
         "component:monitoring"
-      ],
-      "reviewers": ["team:infra-monitoring-dri"]
+      ]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["jenkins/jenkins"],
       "groupName": "Jenkins components",
-      "labels": ["dependency-upgrade", "app:jenkins", "component:ci"],
-      "reviewers": ["team:infra-ci-dri"]
+      "labels": ["dependency-upgrade", "app:jenkins", "component:ci"]
     },
     {
       "datasources": ["jenkins-plugins"],
       "packagePatterns": [".*"],
       "groupName": "Jenkins plugins",
       "labels": ["dependency-upgrade", "app:jenkins", "component:ci"],
-      "reviewers": ["team:infra-ci-dri"],
       "extends": ["schedule:weekly"]
     },
     {
