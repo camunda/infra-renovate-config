@@ -1,5 +1,8 @@
 # infra-renovate-config
-Renovate configuration owned by #infra team
+
+**This is currently a PoC that is unused!**
+
+Renovate configuration owned by Infra team.
 
 ## Usage
 
