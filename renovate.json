@@ -1,15 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "docker:enableMajor"],
-  "masterIssue": true,
+  "extends": [
+    "config:base",
+    "docker:enableMajor"
+  ],
   "automerge": false,
+  "schedule": ["on the 1st and 3rd day instance on sunday after 9pm"],
   "prHourlyLimit": 6,
   "prConcurrentLimit": 50,
   "commitBodyTable": true,
   "semanticCommits": true,
   "separateMajorMinor": false,
+  "dependencyDashboard": true,
   "labels": ["dependency-upgrade"],
-  "reviewers": ["team:infra-maintenance-dri"],
+  "reviewers": ["team:infra-maintenance-dri"],  
   "prBodyNotes": [
     "{{#if isMajor}}:warning: THIS IS A MAJOR VERSION UPDATE :warning:{{/if}}",
     "Before merging, *always* check with the release notes if any other changes need to be done."
@@ -26,196 +30,32 @@
   "patch": {
     "enabled": true
   },
-  "jenkins": {
-    "fileMatch": ["(^|/)plugins.txt", "(^|/)plugins_extra.txt"]
-  },
-  "kubernetes": {
-    "fileMatch": ["kustomize/.+\\.y.?ml$"]
-  },
-  "kustomize": {
-    "fileMatch": ["kustomization\\.y.?ml$"]
-  },
   "packageRules": [
     {
       "languages": ["python"],
       "packagePatterns": [".*"],
-      "labels": ["dependency-upgrade", "group:python", "component:internal"]
+      "addLabels": ["group:python"]
     },
     {
       "languages": ["golang"],
       "packagePatterns": [".*"],
-      "labels": ["dependency-upgrade", "group:golang", "component:internal"]
+      "addLabels": ["group:golang"]
     },
     {
       "datasources": ["terraform-provider"],
       "packagePatterns": [".*"],
-      "labels": ["dependency-upgrade", "group:terraform", "component:internal"],
+      "addLabels": ["group:terraform"],
       "extends": ["schedule:monthly"]
-    },
-    {
-      "datasources": ["terraform-provider"],
-      "packagePatterns": ["vault"],
-      "labels": ["dependency-upgrade", "group:terraform", "component:gitops"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["kubectl"],
-      "labels": ["dependency-upgrade", "app:kubectl"]
-    },
-    {
-      "datasources": ["docker"],
-      "paths": ["/ci/", "/stage.ci/"],
-      "groupName": "CI components",
-      "labels": ["dependency-upgrade", "component:ci"]
-    },
-    {
-      "datasources": ["docker"],
-      "paths": ["/kustomize/harbor/"],
-      "groupName": "Harbor additional components",
-      "labels": ["dependency-upgrade", "app:harbor", "component:repo"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["goharbor"],
-      "groupName": "Harbor components",
-      "labels": ["dependency-upgrade", "app:harbor", "component:repo"]
-    },
-    {
-      "datasources": ["docker"],
-      "paths": ["nexus/"],
-      "groupName": "Nexus components",
-      "labels": ["dependency-upgrade", "app:nexus", "component:repo"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["jenkinsxio/bucketrepo"],
-      "groupName": "PR dynamic repository components",
-      "labels": ["dependency-upgrade", "app:bucketrepo", "component:repo"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["kubernetes-replicator"],
-      "labels": ["dependency-upgrade", "app:kubernetes-replicator"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["vouch"],
-      "groupName": "Vouch components",
-      "labels": ["dependency-upgrade", "app:vouch", "component:ingress"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["external-dns"],
-      "groupName": "external-dns components",
-      "labels": ["dependency-upgrade", "app:external-dns", "component:ingress"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["cert-manager"],
-      "groupName": "cert-manager components",
-      "labels": ["dependency-upgrade", "app:cert-manager", "component:ingress"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["nginx-ingress"],
-      "groupName": "nginx-ingress components",
-      "labels": [
-        "dependency-upgrade",
-        "app:nginx-ingress",
-        "component:ingress"
-      ]
+      "addLabels": ["app:kubectl"]
     },
     {
       "datasources": ["docker"],
       "packagePatterns": ["vault"],
-      "groupName": "Vault components",
-      "labels": ["dependency-upgrade", "app:vault", "component:gitops"]
-    },
-    {
-      "datasources": ["docker"],
-      "paths": ["argocd"],
-      "groupName": "ArgoCD components",
-      "labels": ["dependency-upgrade", "app:argocd", "component:gitops"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["kube-state-metrics"],
-      "groupName": "kube-state-metrics components",
-      "labels": [
-        "dependency-upgrade",
-        "app:kube-state-metrics",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["grafana"],
-      "groupName": "Grafana components",
-      "labels": ["dependency-upgrade", "app:grafana", "component:monitoring"]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["alertmanager"],
-      "labels": [
-        "dependency-upgrade",
-        "app:alertmanager",
-        "group:prometheus",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["node-exporter"],
-      "labels": [
-        "dependency-upgrade",
-        "app:node-exporter",
-        "group:prometheus",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["blackbox-exporter"],
-      "labels": [
-        "dependency-upgrade",
-        "app:blackbox-exporter",
-        "group:prometheus",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["prom/prometheus"],
-      "labels": [
-        "dependency-upgrade",
-        "app:prometheus",
-        "group:prometheus",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["jimmidyson/configmap-reload"],
-      "groupName": "Monitoring components",
-      "labels": [
-        "dependency-upgrade",
-        "app:configmap-reloader",
-        "group:prometheus",
-        "component:monitoring"
-      ]
-    },
-    {
-      "datasources": ["docker"],
-      "packagePatterns": ["jenkins/jenkins"],
-      "groupName": "Jenkins components",
-      "labels": ["dependency-upgrade", "app:jenkins", "component:ci"]
-    },
-    {
-      "datasources": ["jenkins-plugins"],
-      "packagePatterns": [".*"],
-      "groupName": "Jenkins plugins",
-      "labels": ["dependency-upgrade", "app:jenkins", "component:ci"],
-      "extends": ["schedule:weekly"]
+      "addLabels": ["group:vault"]
     },
     {
       "datasources": ["docker"],
