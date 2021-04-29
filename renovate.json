@@ -2,18 +2,18 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "docker:enableMajor"
+    "docker:enableMajor",
+    ":automergeDisabled",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    ":label(dependency-upgrade)",
+    ":reviewer(team:infra-maintenance-dri)"
   ],
-  "automerge": false,
   "schedule": ["on the 1st and 3rd day instance on sunday after 9pm"],
   "prHourlyLimit": 6,
   "prConcurrentLimit": 50,
   "commitBodyTable": true,
-  "semanticCommits": true,
   "separateMajorMinor": false,
-  "dependencyDashboard": true,
-  "labels": ["dependency-upgrade"],
-  "reviewers": ["team:infra-maintenance-dri"],  
   "prBodyNotes": [
     "{{#if isMajor}}:warning: THIS IS A MAJOR VERSION UPDATE :warning:{{/if}}",
     "Before merging, *always* check with the release notes if any other changes need to be done."
