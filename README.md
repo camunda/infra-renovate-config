@@ -8,6 +8,7 @@ This is currently not widely used but has potential to avoid duplication.
 - https://github.com/camunda/infra-argocd
 - https://github.com/camunda/infra-vault-template
 - https://github.com/camunda/infra-seed-jobs
+- https://github.com/camunda/jenkins-global-shared-library
 
 ## Usage
 
