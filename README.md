@@ -5,6 +5,7 @@ This is currently not used everywhere but we intend doing so whenever we find a 
 
 ## Known Users
 
+- https://github.com/camunda/github-actions-recipes
 - https://github.com/camunda/infra-argocd
 - https://github.com/camunda/infra-channel-slack-bot
 - https://github.com/camunda/infra-ci-analytics-proxy
