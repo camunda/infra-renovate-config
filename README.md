@@ -7,6 +7,7 @@ This is currently not used everywhere but we intend doing so whenever we find a 
 
 Alphabetically ordered, [check if outdated](https://github.com/search?q=org%3Acamunda+github%3Ecamunda%2Finfra-renovate-config&type=code):
 
+- https://github.com/camunda/cawemo-infrastructure
 - https://github.com/camunda/github-actions-recipes
 - https://github.com/camunda/infra-argocd
 - https://github.com/camunda/infra-channel-slack-bot
