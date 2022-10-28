@@ -1,7 +1,7 @@
 # infra-renovate-config
 
 Renovate configuration owned by Infra team.
-This is currently not used everywhere but we intend doing so whenever we find a repository that does not use the shared config. infra-core is a special case.
+This is currently used, see the below section. We intend to use it whenever we find a repository that does not use the shared config. infra-core is a special case.
 
 ## Known Users
 
