@@ -57,6 +57,54 @@
       packagePatterns: ["vault"],
       addLabels: ["group:vault"],
     },
+    // GitHub Actions - Create PRs after 3 days and automerge mentioned components afterwards.
+    {
+      matchUpdateTypes: ["minor", "patch"],
+      stabilityDays: 3,
+      prCreation: "not-pending",
+      managers: ["github-actions"],
+      packagePatterns: [".*"],
+      automerge: true,
+    },
+    // Patches
+    // Create PRs after 3 days and automerge mentioned components afterwards.
+    // Those are tested packages and we know that they follow the semver convention,
+    // but it's fine to have candidate packages to test before move them to minor section.
+    {
+      matchUpdateTypes: ["patch"],
+      stabilityDays: 3,
+      prCreation: "not-pending",
+      matchPackagePatterns: [
+        "ambv/black",
+        "google-cloud-pubsub",
+        "google-cloud-storage",
+        "helm/helm",
+        "Jinja2",
+        "pandas",
+        "pre-commit/pre-commit-hooks",
+        "pyyaml",
+        "requests",
+        "slack-bolt",
+      ],
+      automerge: true,
+    },
+    // Minor versions
+    // Create PRs after 3 days and automerge mentioned components afterwards.
+    // Those are tested packages and we know that they follow the semver convention,
+    // but it's fine to have candidate packages to test before move them to minor section.
+    {
+      matchUpdateTypes: ["minor"],
+      stabilityDays: 3,
+      prCreation: "not-pending",
+      matchPackagePatterns: [
+        "ambv/black",
+        "Jinja2",
+        "pre-commit/pre-commit-hooks",
+        "pyyaml",
+        "requests",
+      ],
+      automerge: true,
+    },
   ],
   hostRules: [
     {
