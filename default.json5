@@ -30,6 +30,11 @@
   patch: {
     enabled: true,
   },
+  // ignore files that are centrally managed via infra-core and terraform
+  // not ignoring the following files could ultimately lead to config drifts
+  ignorePaths: [
+    ".github/workflows/maintenance-project.yml"
+  ],
   packageRules: [
     {
       languages: ["python"],
