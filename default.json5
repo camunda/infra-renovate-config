@@ -76,7 +76,6 @@
       prCreation: "not-pending",
       matchPackagePatterns: [
         "ambv/black",
-        "^ghcr.io/chaos-mesh",
         "google-cloud-pubsub",
         "google-cloud-storage",
         "helm/helm",
@@ -88,7 +87,6 @@
         "requests",
         "slack-bolt",
       ],
-      rangeStrategy: "replace", // to replace any package starting with "ghcr.io/chaos-mesh", we do not have to write all 3 packages
       automerge: true,
     },
     // Minor versions
