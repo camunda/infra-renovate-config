@@ -98,6 +98,7 @@
       stabilityDays: 3,
       prCreation: "not-pending",
       matchPackagePatterns: [
+        "adrienverge/yamllint",
         "ambv/black",
         "Jinja2",
         "pre-commit/pre-commit-hooks",
