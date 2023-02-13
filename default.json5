@@ -75,6 +75,7 @@
       stabilityDays: 3,
       prCreation: "not-pending",
       matchPackagePatterns: [
+        "aio-libs/aiohttp",
         "ambv/black",
         "google-cloud-pubsub",
         "google-cloud-storage",
