@@ -85,6 +85,7 @@
         "pyyaml",
         "requests",
         "slack-bolt",
+        "velero/velero",
       ],
       automerge: true,
     },
