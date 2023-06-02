@@ -74,7 +74,9 @@
       prCreation: "not-pending",
       matchPackagePatterns: [
         "aio-libs/aiohttp",
+        "amazon/aws-for-fluent-bit",
         "ambv/black",
+        "awscli",
         "curlimages/curl",
         "google-cloud-pubsub",
         "google-cloud-storage",
@@ -100,7 +102,9 @@
       prCreation: "not-pending",
       matchPackagePatterns: [
         "adrienverge/yamllint",
+        "amazon/aws-for-fluent-bit",
         "ambv/black",
+        "awscli",
         "curlimages/curl",
         "Jinja2",
         "pre-commit/pre-commit-hooks",
