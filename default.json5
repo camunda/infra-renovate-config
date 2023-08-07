@@ -9,7 +9,7 @@
   ],
   schedule: ["on the 1st and 3rd day instance on sunday after 9pm"],
   prHourlyLimit: 6,
-  prConcurrentLimit: 50,
+  prConcurrentLimit: 20,
   commitBodyTable: true,
   separateMajorMinor: false,
   prBodyNotes: [
@@ -55,22 +55,23 @@
       packagePatterns: ["vault"],
       addLabels: ["group:vault"],
     },
-    // GitHub Actions - Create PRs after 3 days and automerge mentioned components afterwards.
+    // GitHub Actions
+    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
     {
       matchUpdateTypes: ["minor", "patch"],
-      stabilityDays: 3,
+      minimumReleaseAge: "12 hours",
       prCreation: "not-pending",
       managers: ["github-actions"],
       packagePatterns: [".*"],
       automerge: true,
     },
     // Patches
-    // Create PRs after 3 days and automerge mentioned components afterwards.
+    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
     // Those are tested packages and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["patch"],
-      stabilityDays: 3,
+      minimumReleaseAge: "12 hours",
       prCreation: "not-pending",
       matchPackagePatterns: [
         "aio-libs/aiohttp",
@@ -93,12 +94,12 @@
       automerge: true,
     },
     // Minor versions
-    // Create PRs after 3 days and automerge mentioned components afterwards.
+    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
     // Those are tested packages and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["minor"],
-      stabilityDays: 3,
+      minimumReleaseAge: "12 hours",
       prCreation: "not-pending",
       matchPackagePatterns: [
         "adrienverge/yamllint",
