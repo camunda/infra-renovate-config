@@ -1,7 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "config:base",
+    "config:recommended",
     "docker:enableMajor",
     ":automergeDisabled",
     ":semanticCommits",
@@ -16,9 +16,6 @@
     "{{#if isMajor}}:warning: THIS IS A MAJOR VERSION UPDATE :warning:{{/if}}",
     "Before merging, *always* check with the release notes if any other changes need to be done.",
   ],
-  docker: {
-    pruneStaleBranches: false,
-  },
   major: {
     enabled: true,
   },
@@ -30,29 +27,29 @@
   },
   packageRules: [
     {
-      languages: ["python"],
-      packagePatterns: [".*"],
+      matchCategories: ["python"],
+      matchPackagePatterns: [".*"],
       addLabels: ["group:python"],
     },
     {
-      languages: ["golang"],
-      packagePatterns: [".*"],
+      matchCategories: ["golang"],
+      matchPackagePatterns: [".*"],
       addLabels: ["group:golang"],
     },
     {
-      datasources: ["terraform-provider"],
-      packagePatterns: [".*"],
+      matchDatasources: ["terraform-provider"],
+      matchPackagePatterns: [".*"],
       addLabels: ["group:terraform"],
       extends: ["schedule:monthly"],
     },
     {
-      datasources: ["docker"],
-      packagePatterns: ["kubectl"],
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["kubectl"],
       addLabels: ["app:kubectl"],
     },
     {
-      datasources: ["docker"],
-      packagePatterns: ["vault"],
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["vault"],
       addLabels: ["group:vault"],
     },
     // GitHub Actions
@@ -61,8 +58,8 @@
       matchUpdateTypes: ["minor", "patch"],
       minimumReleaseAge: "12 hours",
       prCreation: "not-pending",
-      managers: ["github-actions"],
-      packagePatterns: [".*"],
+      matchManagers: ["github-actions"],
+      matchPackagePatterns: [".*"],
       automerge: true,
     },
     // Patches
