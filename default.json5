@@ -6,6 +6,7 @@
     ":automergeDisabled",
     ":semanticCommits",
     ":dependencyDashboard",
+    ":enablePreCommit",
   ],
   schedule: ["on the 1st and 3rd day instance on sunday after 9pm"],
   prHourlyLimit: 6,
