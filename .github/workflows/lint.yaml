@@ -14,10 +14,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v3.0.0
+      name: Validate renovate5.json
+      with:
+        extra_args: --all-files --verbose
     - name: Prepare for pre-commit
       run: |
-        cp default.json5 renovate.json5  # renovate-config-validator hook can only validate files that are called renovate.json5
-        git add renovate.json5
+        cp default.json5 .github/renovate.json5  # renovate-config-validator hook can only validate files that are called renovate.json5
+        git add .github/renovate.json5
     - uses: pre-commit/action@v3.0.0
+      name: Validate default5.json
       with:
         extra_args: --all-files --verbose
