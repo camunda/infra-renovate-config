@@ -7,4 +7,13 @@
     ":dependencyDashboard",
     ":enablePreCommit",
   ],
+  schedule: ["every weekend"],
+  platformAutomerge: false,
+  packageRules: [
+    {
+      matchUpdateTypes: ["minor", "patch"],
+      matchManagers: ["pre-commit"],
+      automerge: true,
+    },
+  ]
 }
