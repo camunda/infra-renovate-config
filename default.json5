@@ -9,6 +9,7 @@
     ":enablePreCommit",
   ],
   schedule: ["on the 1st and 3rd day instance on sunday after 9pm"],
+  platformAutomerge: false,
   prHourlyLimit: 6,
   prConcurrentLimit: 20,
   commitBodyTable: true,
