@@ -8,7 +8,7 @@
     ":dependencyDashboard",
     ":enablePreCommit",
   ],
-  schedule: ["on the 1st and 3rd day instance on sunday after 9pm"],
+  schedule: ["every weekend"],
   platformAutomerge: false,
   prHourlyLimit: 6,
   prConcurrentLimit: 20,
