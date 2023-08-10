@@ -55,23 +55,18 @@
       addLabels: ["group:vault"],
     },
     // GitHub Actions
-    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
+    // automerge mentioned components afterwards.
     {
       matchUpdateTypes: ["minor", "patch"],
-      minimumReleaseAge: "12 hours",
-      prCreation: "not-pending",
       matchManagers: ["github-actions"],
       matchPackagePatterns: [".*"],
       automerge: true,
     },
     // Patches
-    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
     // Those are tested packages and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["patch"],
-      minimumReleaseAge: "12 hours",
-      prCreation: "not-pending",
       matchPackagePatterns: [
         "aio-libs/aiohttp",
         "amazon/aws-for-fluent-bit",
@@ -94,13 +89,10 @@
       automerge: true,
     },
     // Minor versions
-    // Merge PRs after minimumReleaseAge and automerge mentioned components afterwards.
     // Those are tested packages and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["minor"],
-      minimumReleaseAge: "12 hours",
-      prCreation: "not-pending",
       matchPackagePatterns: [
         "adrienverge/yamllint",
         "amazon/aws-for-fluent-bit",
