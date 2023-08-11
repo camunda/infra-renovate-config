@@ -70,6 +70,7 @@
       matchPackagePatterns: [
         "aio-libs/aiohttp",
         "amazon/aws-for-fluent-bit",
+        "antonbabenko/pre-commit-terraform",
         "ambv/black",
         "awscli",
         "curlimages/curl",
@@ -96,6 +97,7 @@
       matchPackagePatterns: [
         "adrienverge/yamllint",
         "amazon/aws-for-fluent-bit",
+        "antonbabenko/pre-commit-terraform",
         "ambv/black",
         "awscli",
         "curlimages/curl",
