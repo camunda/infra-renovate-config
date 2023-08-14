@@ -43,10 +43,12 @@
     },
     {
       matchCategories: ["python"],
+      groupName: "Python dependencies",
       addLabels: ["group:python"],
     },
     {
       matchCategories: ["golang"],
+      groupName: "Go dependencies",
       addLabels: ["group:golang"],
     },
     {
@@ -125,6 +127,11 @@
         "requests",
       ],
       automerge: true,
+    },
+    {
+      matchUpdateTypes: ["minor", "patch"],
+      matchCategories: ["python", "golang"],
+      automerge: true
     },
     // Create PRs and automerge mentioned components afterwards.
     // Those are tested packages
