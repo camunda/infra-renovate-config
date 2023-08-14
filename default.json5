@@ -95,6 +95,7 @@
         "pyyaml",
         "requests",
         "slack-bolt",
+        "^terraform$",
         "velero/velero",
       ],
       automerge: true,
