@@ -27,20 +27,30 @@
   patch: {
     enabled: true,
   },
+  vulnerabilityAlerts: {
+    labels: ["security"],
+    enabled: true
+  },
+  lockFileMaintenance: {
+    automerge: true,
+    enabled: true
+  },
   packageRules: [
+    // Use only stable/LTS versions of NodeJS (even numbers): 18, 20, ...
+    {
+      matchPackageNames: ["node"],
+      allowedVersions: "/^[1-9][0,2,4,6,8].*$/",
+    },
     {
       matchCategories: ["python"],
-      matchPackagePatterns: [".*"],
       addLabels: ["group:python"],
     },
     {
       matchCategories: ["golang"],
-      matchPackagePatterns: [".*"],
       addLabels: ["group:golang"],
     },
     {
       matchDatasources: ["terraform-provider"],
-      matchPackagePatterns: [".*"],
       addLabels: ["group:terraform"],
       extends: ["schedule:monthly"],
     },
@@ -68,7 +78,6 @@
     {
       matchUpdateTypes: ["minor", "patch"],
       matchManagers: ["github-actions"],
-      matchPackagePatterns: [".*"],
       automerge: true,
     },
     // Patches
@@ -141,6 +150,7 @@
       matchFileNames: [".tool-versions"],
       matchPackageNames: [
         "kubernetes/kubectl",
+        "hadolint/hadolint",
         "hashicorp/terraform",
         "pre-commit/pre-commit",
       ],
@@ -193,7 +203,7 @@
     {
       fileMatch: ["\.tool-versions$"],
       matchStrings: [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.* (?<currentValue>.*)\\s",
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s.* (?<currentValue>.*)\\s"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
