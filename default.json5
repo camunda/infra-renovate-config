@@ -54,6 +54,15 @@
       matchPackagePatterns: ["vault"],
       addLabels: ["group:vault"],
     },
+    // We can't upgrade to next CentOS major version,
+    // e.g. in https://github.com/camunda/camunda-docker-ci-base-centos
+    {
+      matchUpdateTypes: ["major"],
+      matchPackageNames: [
+        "centos",
+      ],
+      enabled: false,
+    },
     // GitHub Actions
     // automerge mentioned components afterwards.
     {
@@ -74,6 +83,7 @@
         "ambv/black",
         "awscli",
         "curlimages/curl",
+        "gcr.io/ci-30-162810/centos",
         "google-cloud-pubsub",
         "google-cloud-storage",
         "helm/helm",
@@ -101,6 +111,7 @@
         "ambv/black",
         "awscli",
         "curlimages/curl",
+        "gcr.io/ci-30-162810/centos",
         "Jinja2",
         "pre-commit/pre-commit-hooks",
         "renovatebot/pre-commit-hooks",
