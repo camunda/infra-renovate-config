@@ -49,6 +49,7 @@
     {
       matchCategories: ["golang"],
       groupName: "Go dependencies",
+      postUpdateOptions: ["gomodTidy"],
       addLabels: ["group:golang"],
     },
     {
