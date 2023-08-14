@@ -131,6 +131,30 @@
       groupName: "pre-commit hooks",
       automerge: true
     },
+    // For known Github repositories that use Github tags/releases of format
+    // "v1.2.3" and where the asdf plugin ignores the "v" prefix, we also tell
+    // Renovate to ignore it via extractVersion when updating .tool-version file
+    {
+      matchManagers: ["regex"],
+      matchFileNames: [".tool-versions"],
+      matchPackageNames: [
+        "kubernetes/kubectl",
+        "hashicorp/terraform",
+        "pre-commit/pre-commit",
+      ],
+      extractVersion: "^v(?<version>.*)$",
+    },
+    // For the kustomize Github repo that uses Github tags/releases of format
+    // "kustomize/v1.2.3" and where the asdf plugin ignores this prefix, we also
+    // tell Renovate to ignore it via extractVersion when updating .tool-version
+    {
+      matchManagers: ["regex"],
+      matchFileNames: [".tool-versions"],
+      matchPackageNames: [
+        "kubernetes-sigs/kustomize",
+      ],
+      extractVersion: "^kustomize/v(?<version>.*)$",
+    },
   ],
   hostRules: [
     {
