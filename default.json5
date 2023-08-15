@@ -211,7 +211,7 @@
     // Renovate to ignore it via extractVersion when updating .tool-version file
     {
       matchManagers: ["regex"],
-      matchFileNames: [".tool-versions"],
+      matchFileNames: [".tool-versions", "Dockerfile"],
       matchPackageNames: [
         "hadolint/hadolint",
         "hashicorp/terraform",
