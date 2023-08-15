@@ -27,6 +27,12 @@
   patch: {
     enabled: true,
   },
+  kubernetes: {
+    fileMatch: ["\\.y.?ml$"],
+  },
+  kustomize: {
+    fileMatch: ["kustomization\\.y.?ml$"],
+  },
   vulnerabilityAlerts: {
     labels: ["security"],
     enabled: true
@@ -36,6 +42,11 @@
     enabled: true
   },
   packageRules: [
+    // Don't close update PRs in case there're connectivity issues or requests limit with a Docker registry
+    {
+      matchCategories: ["docker"],
+      pruneStaleBranches: false
+    },
     // Use only stable/LTS versions of NodeJS (even numbers): 18, 20, ...
     {
       matchPackageNames: ["node"],
@@ -53,22 +64,48 @@
       addLabels: ["group:golang"],
     },
     {
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["prom/.*"],
+      groupName: "Prometheus-related components",
+      addLabels: ["group:prometheus"],
+    },
+    // Terraform AWS modules
+    {
+      matchDatasources: ["terraform-module"],
+      matchPackagePatterns: ["terraform-aws-modules.*"],
+      addLabels: ["group:terraform"],
+      groupName: "Terraform AWS modules",
+      schedule: [
+        "every 2 weeks on Saturday and Sunday",
+      ],
+    },
+    // Terraform major provider updates
+    {
       matchDatasources: ["terraform-provider"],
       addLabels: ["group:terraform"],
-      extends: ["schedule:monthly"],
+      schedule: [
+        "every 2 weeks on Saturday and Sunday",
+      ]
     },
+    // Terraform minor & patch provider updates
     {
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["kubectl"],
-      addLabels: ["app:kubectl"],
-    },
-    {
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["vault"],
-      addLabels: ["group:vault"],
+      matchUpdateTypes: ["minor", "patch"],
+      matchDatasources: ["terraform-provider"],
+      addLabels: ["group:terraform"],
+      groupName: "Terraform providers",
+      automerge: true,
+      schedule: [
+        "every 2 weeks on Saturday and Sunday",
+      ]
     },
     // We can't upgrade to next CentOS major version,
     // e.g. in https://github.com/camunda/camunda-docker-ci-base-centos
+    {
+      separateMajorMinor: true,
+      matchPackageNames: [
+        "centos",
+      ],
+    },
     {
       matchUpdateTypes: ["major"],
       matchPackageNames: [
@@ -76,15 +113,30 @@
       ],
       enabled: false,
     },
+    {
+      separateMajorMinor: true,
+      separateMinorPatch: true,
+      matchPackagePatterns: [
+        "kubectl",
+        "autoscaling/cluster-autoscaler"
+      ],
+    },
+    {
+      matchUpdateTypes: ["major", "minor"],
+      matchPackagePatterns: [
+        "kubectl",
+        "autoscaling/cluster-autoscaler"
+      ],
+      enabled: false,
+    },
     // GitHub Actions
-    // automerge mentioned components afterwards.
     {
       matchUpdateTypes: ["minor", "patch"],
       matchManagers: ["github-actions"],
       automerge: true,
     },
     // Patches
-    // Those are tested packages and we know that they follow the semver convention,
+    // Those are tested packages, and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["patch"],
@@ -100,9 +152,12 @@
         "google-cloud-storage",
         "helm/helm",
         "Jinja2",
+        "kubectl",
         "pandas",
+        "prom/.+",
         "PyCQA/pylint",
         "pyyaml",
+        "autoscaling/cluster-autoscaler",
         "requests",
         "slack-bolt",
         "^terraform$",
@@ -111,7 +166,7 @@
       automerge: true,
     },
     // Minor versions
-    // Those are tested packages and we know that they follow the semver convention,
+    // Those are tested packages, and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
       matchUpdateTypes: ["minor"],
@@ -124,6 +179,7 @@
         "gcr.io/ci-30-162810/centos",
         "^golang$",
         "Jinja2",
+        "prom/.+",
         "pyyaml",
         "requests",
       ],
@@ -134,7 +190,7 @@
       matchCategories: ["python", "golang"],
       automerge: true
     },
-    // Create PRs and automerge mentioned components afterwards.
+    // Create PRs and automerge mentioned components afterward
     // Those are tested packages
     {
       matchUpdateTypes: ["major"],
@@ -150,7 +206,7 @@
       groupName: "pre-commit hooks",
       automerge: true
     },
-    // For known Github repositories that use Github tags/releases of format
+    // For known GitHub repositories that use GitHub tags/releases of format
     // "v1.2.3" and where the asdf plugin ignores the "v" prefix, we also tell
     // Renovate to ignore it via extractVersion when updating .tool-version file
     {
@@ -164,7 +220,7 @@
       ],
       extractVersion: "^v(?<version>.*)$",
     },
-    // For the kustomize Github repo that uses Github tags/releases of format
+    // For the kustomize GitHub repo that uses GitHub tags/releases of format
     // "kustomize/v1.2.3" and where the asdf plugin ignores this prefix, we also
     // tell Renovate to ignore it via extractVersion when updating .tool-version
     {
@@ -215,5 +271,13 @@
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
+    // for update scripts
+    {
+      fileMatch: ["update.sh$"],
+      matchStrings: [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    }
   ],
 }
