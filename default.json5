@@ -215,6 +215,7 @@
       matchPackageNames: [
         "hadolint/hadolint",
         "hashicorp/terraform",
+        "helm/helm",
         "pre-commit/pre-commit",
       ],
       extractVersion: "^v(?<version>.*)$",
@@ -229,12 +230,6 @@
         "kubernetes-sigs/kustomize",
       ],
       extractVersion: "^kustomize/v(?<version>.*)$",
-    },
-    // For the helm Github repo that uses Github tags/releases of format
-    // "Helm 1.2.3"
-    {
-      matchPackageNames: ["helm/helm"],
-      extractVersion: "^Helm\s+(?<version>.*)$",
     },
     {
       matchPackageNames: ["kubernetes/kubectl"],
