@@ -213,7 +213,6 @@
       matchManagers: ["regex"],
       matchFileNames: [".tool-versions"],
       matchPackageNames: [
-        "kubernetes/kubectl",
         "hadolint/hadolint",
         "hashicorp/terraform",
         "pre-commit/pre-commit",
@@ -225,12 +224,22 @@
     // tell Renovate to ignore it via extractVersion when updating .tool-version
     {
       matchManagers: ["regex"],
-      matchFileNames: [".tool-versions"],
+      matchFileNames: [".tool-versions", "Dockerfile"],
       matchPackageNames: [
         "kubernetes-sigs/kustomize",
       ],
       extractVersion: "^kustomize/v(?<version>.*)$",
     },
+    // For the helm Github repo that uses Github tags/releases of format
+    // "Helm 1.2.3"
+    {
+      matchPackageNames: ["helm/helm"],
+      extractVersion: "^Helm\s+(?<version>.*)$",
+    },
+    {
+      matchPackageNames: ["kubernetes/kubectl"],
+      extractVersion: "^kubernetes-(?<version>.*)$",
+    }
   ],
   hostRules: [
     {
