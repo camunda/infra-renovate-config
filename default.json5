@@ -38,6 +38,7 @@
     enabled: true
   },
   lockFileMaintenance: {
+    addLabels: ["automerge"],
     automerge: true,
     enabled: true
   },
@@ -93,6 +94,7 @@
       matchDatasources: ["terraform-provider"],
       addLabels: ["group:terraform"],
       groupName: "Terraform providers",
+      addLabels: ["automerge"],
       automerge: true,
       schedule: [
         "every 2 weeks on Saturday and Sunday",
@@ -133,6 +135,7 @@
     {
       matchUpdateTypes: ["minor", "patch"],
       matchManagers: ["github-actions"],
+      addLabels: ["automerge"],
       automerge: true,
     },
     // Patches
@@ -166,6 +169,7 @@
         "^terraform$",
         "velero/velero",
       ],
+      addLabels: ["automerge"],
       automerge: true,
     },
     // Minor versions
@@ -187,11 +191,13 @@
         "pyyaml",
         "requests",
       ],
+      addLabels: ["automerge"],
       automerge: true,
     },
     {
       matchUpdateTypes: ["minor", "patch"],
       matchCategories: ["python", "golang"],
+      addLabels: ["automerge"],
       automerge: true
     },
     // Create PRs and automerge mentioned components afterward
@@ -202,12 +208,14 @@
         "actions/setup-python",
         "pre-commit/.+"
       ],
+      addLabels: ["automerge"],
       automerge: true,
     },
     {
       matchUpdateTypes: ["major", "minor", "patch"],
       matchManagers: ["pre-commit"],
       groupName: "pre-commit hooks",
+      addLabels: ["automerge"],
       automerge: true
     },
     // For known GitHub repositories that use GitHub tags/releases of format
