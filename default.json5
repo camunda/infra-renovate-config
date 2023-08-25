@@ -162,6 +162,7 @@
         "pandas",
         "prom/.+",
         "PyCQA/pylint",
+        "^python$",
         "pyyaml",
         "autoscaling/cluster-autoscaler",
         "requests",
