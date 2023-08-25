@@ -168,6 +168,7 @@
         "requests",
         "slack-bolt",
         "^terraform$",
+        "tj-actions/changed-files",
         "velero/velero",
       ],
       addLabels: ["automerge"],
@@ -191,6 +192,7 @@
         "prom/.+",
         "pyyaml",
         "requests",
+        "tj-actions/changed-files",
       ],
       addLabels: ["automerge"],
       automerge: true,
@@ -207,7 +209,8 @@
       matchUpdateTypes: ["major"],
       matchPackagePatterns: [
         "actions/setup-python",
-        "pre-commit/.+"
+        "pre-commit/.+",
+        "tj-actions/changed-files",
       ],
       addLabels: ["automerge"],
       automerge: true,
