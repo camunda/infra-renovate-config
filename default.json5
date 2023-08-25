@@ -92,9 +92,8 @@
     {
       matchUpdateTypes: ["minor", "patch"],
       matchDatasources: ["terraform-provider"],
-      addLabels: ["group:terraform"],
+      addLabels: ["group:terraform", "automerge"],
       groupName: "Terraform providers",
-      addLabels: ["automerge"],
       automerge: true,
       schedule: [
         "every 2 weeks on Saturday and Sunday",
