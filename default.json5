@@ -20,12 +20,15 @@
   ],
   major: {
     enabled: true,
+    addLabels: ["upgrade:major"],
   },
   minor: {
     enabled: true,
+    addLabels: ["upgrade:minor"],
   },
   patch: {
     enabled: true,
+    addLabels: ["upgrade:patch"],
   },
   kubernetes: {
     fileMatch: ["\\.y.?ml$"],
@@ -278,6 +281,7 @@
   regexManagers: [
     {
       fileMatch: ["^Dockerfile$"],
+      customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s(ARG|ENV) .*?_VERSION=(?<currentValue>.*)\\s",
       ],
@@ -286,6 +290,7 @@
     // for asdf-vm.org tool versions
     {
       fileMatch: ["\.tool-versions$"],
+      customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s.* (?<currentValue>.*)\\s"
       ],
@@ -294,6 +299,7 @@
     // for update scripts
     {
       fileMatch: ["update.sh$"],
+      customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
       ],
