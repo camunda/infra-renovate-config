@@ -118,14 +118,6 @@
       enabled: false,
     },
     {
-      separateMajorMinor: true,
-      separateMinorPatch: true,
-      matchPackagePatterns: [
-        "kubectl",
-        "autoscaling/cluster-autoscaler"
-      ],
-    },
-    {
       matchUpdateTypes: ["major", "minor"],
       matchPackagePatterns: [
         "kubectl",
