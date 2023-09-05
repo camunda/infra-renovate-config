@@ -138,6 +138,8 @@
     {
       matchUpdateTypes: ["patch"],
       matchPackagePatterns: [
+        "actions/checkout",
+        "actions/setup-python",
         "aio-libs/aiohttp",
         "amazon/aws-for-fluent-bit",
         "ambv/black",
@@ -177,6 +179,8 @@
     {
       matchUpdateTypes: ["minor"],
       matchPackagePatterns: [
+        "actions/checkout",
+        "actions/setup-python",
         "adrienverge/yamllint",
         "amazon/aws-for-fluent-bit",
         "ambv/black",
@@ -208,6 +212,7 @@
     {
       matchUpdateTypes: ["major"],
       matchPackagePatterns: [
+        "actions/checkout",
         "actions/setup-python",
         "pre-commit/.+",
         "tj-actions/changed-files",
