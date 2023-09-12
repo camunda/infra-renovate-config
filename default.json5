@@ -51,6 +51,16 @@
       matchCategories: ["docker"],
       pruneStaleBranches: false
     },
+    // limit the PR creation for the Renovate pre-commit hook (it's released very frequently)
+    {
+      matchPackageNames: ["renovatebot/pre-commit-hooks"],
+      matchUpdateTypes: ["patch"],
+      enabled: false,
+    },
+    {
+      matchPackageNames: ["renovatebot/pre-commit-hooks"],
+      schedule: ["on Saturday"],
+    },
     // Use only stable/LTS versions of NodeJS (even numbers): 18, 20, ...
     {
       matchPackageNames: ["node"],
