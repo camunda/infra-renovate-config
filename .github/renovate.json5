@@ -1,19 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "config:recommended",
-    ":automergeDisabled",
-    ":semanticCommits",
-    ":dependencyDashboard",
-    ":enablePreCommit",
+    "github>camunda/infra-renovate-config:default.json5"
   ],
-  schedule: ["every weekend"],
-  platformAutomerge: false,
-  packageRules: [
-    {
-      matchUpdateTypes: ["minor", "patch"],
-      matchManagers: ["pre-commit"],
-      automerge: true,
-    },
-  ]
 }
