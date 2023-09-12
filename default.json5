@@ -68,6 +68,10 @@
       addLabels: ["group:golang"],
     },
     {
+      matchManagers: ["github-actions"],
+      addLabels: ["group:github-actions", "component:ci"],
+    },
+    {
       matchDatasources: ["docker"],
       matchPackagePatterns: ["prom/.*"],
       groupName: "Prometheus-related components",
