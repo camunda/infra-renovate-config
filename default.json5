@@ -82,10 +82,54 @@
       addLabels: ["group:github-actions", "component:ci"],
     },
     {
-      matchDatasources: ["docker"],
       matchPackagePatterns: ["prom/.*"],
       groupName: "Prometheus-related components",
       addLabels: ["group:prometheus"],
+    },
+    // Apps
+    {
+      matchPackagePatterns: ["goharbor"],
+      groupName: "Harbor components",
+      addLabels: ["app:harbor", "component:repo"],
+    },
+    {
+      matchPackagePatterns: ["cert-manager"],
+      groupName: "cert-manager components",
+      addLabels: ["app:cert-manager", "component:ingress"],
+    },
+    {
+      matchPackagePatterns: ["argocd", "dex"],
+      excludePackagePatterns: ["argocd-operator"],
+      groupName: "ArgoCD components",
+      addLabels: ["app:argocd", "component:gitops"]
+    },
+    {
+      matchPackagePatterns: ["argocd-operator"],
+      groupName: "ArgoCD Operator",
+      addLabels: ["app:argocd-operator", "component:gitops"],
+    },
+    {
+      matchPackagePatterns: ["eck-operator"],
+      groupName: "Elasticsearch Operator components",
+      addLabels: ["app:eck", "component:gitops"],
+    },
+    {
+      matchPackagePatterns: ["jenkins/jenkins"],
+      groupName: "Jenkins components",
+      addLabels: ["app:jenkins", "component:ci"],
+    },
+    {
+      matchDatasources: ["jenkins-plugins"],
+      groupName: "Jenkins plugins",
+      addLabels: ["app:jenkins", "component:ci"],
+    },
+    // disable updates to `latest` versions of our CI images, we use pinned versions
+    {
+      matchDatasources: ["docker"],
+      matchPackagePatterns: [
+        "gcr.io/ci-30-162810/.*",
+      ],
+      allowedVersions: "!/.*vlatest$/",
     },
     // Terraform AWS modules
     {
@@ -154,37 +198,65 @@
       matchPackagePatterns: [
         "actions/checkout",
         "actions/setup-python",
+        "adrienverge/yamllint",
         "aio-libs/aiohttp",
+        "alertmanager",
         "amazon/aws-for-fluent-bit",
-        "ambv/black",
-        "argoproj/argocd",
+        "aquasecurity/tfsec",
+        "argocd",
+        "autoscaling/cluster-autoscaler",
         "awscli",
+        "blackbox-exporter",
+        "busybox",
+        "camunda-ci-dashboard",
+        "conftest",
         "curlimages/curl",
+        "docker",
+        "docker.elastic.co/eck/eck-operator",
+        "external-dns",
         "external-secrets",
+        "fluent/fluent-bit",
         "gcr.io/ci-30-162810/centos",
+        "gce-proxy",
+        "goharbor/",
         "^golang$",
+        "google-cloud-bigquery",
         "google-cloud-pubsub",
         "google-cloud-storage",
-        "grafana/grafana",
-        "helm/helm",
+        "grafana",
+        "hashicorp/setup-terraform",
+        "hashicorp/vault",
+        "helm",
+        "infra-channel-slack-bot",
+        "infra-dri-bot",
         "ingress-nginx/controller",
+        "jetstack/cert-manager",
+        "jimmidyson/configmap-reload",
         "Jinja2",
-        "kubectl",
+        "^kubectl$",
         "kube-state-metrics",
+        "kubernetes-replicator",
         "mikefarah/yq",
         "^node$",
         "pandas",
-        "^pre-commit$",
+        "peimanja/artifactory_exporter",
+        "peter-evans/create-pull-request",
+        "pre-commit",
         "prom/.+",
+        "psf/black",
         "PyCQA/pylint",
         "^python$",
         "pyyaml",
-        "autoscaling/cluster-autoscaler",
         "requests",
+        "rhysd/actionlint",
         "slack-bolt",
+        "sonatype/nexus3",
         "^terraform$",
+        "terraform-docs",
+        "terraform-linters/tflint",
         "tj-actions/changed-files",
-        "velero/velero",
+        "velero/velero.*",
+        "vouch/vouch-proxy",
       ],
       addLabels: ["automerge"],
       automerge: true,
@@ -198,21 +270,41 @@
         "actions/checkout",
         "actions/setup-python",
         "adrienverge/yamllint",
+        "alertmanager",
         "amazon/aws-for-fluent-bit",
-        "ambv/black",
         "awscli",
+        "blackbox-exporter",
+        "busybox",
+        "camunda-ci-dashboard",
         "curlimages/curl",
+        "docker",
+        "docker.elastic.co/eck/eck-operator",
+        "external-dns",
+        "fluent/fluent-bit",
         "gcr.io/ci-30-162810/centos",
+        "gce-proxy",
         "^golang$",
-        "grafana/grafana",
+        "google-cloud-bigquery",
+        "google-cloud-storage",
+        "grafana",
+        "jimmidyson/configmap-reload",
         "Jinja2",
+        "infra-channel-slack-bot",
+        "infra-dri-bot",
         "kube-state-metrics",
         "mikefarah/yq",
+        "mittwald/kubernetes-replicator",
         "^node$",
-        "^pre-commit$",
-        "prom/.+",
+        "open-policy-agent/conftest",
+        "peter-evans/create-pull-request",
+        "pre-commit",
+        "prom/.*",
+        "psf/black",
+        "PyCQA/pylint",
         "pyyaml",
         "requests",
+        "terraform-docs",
+        "terraform-linters/tflint",
         "tj-actions/changed-files",
       ],
       addLabels: ["automerge"],
@@ -234,6 +326,7 @@
         "gspread",
         "^node$",
         "pre-commit/.+",
+        "psf/black",
         "pytz",
         "tj-actions/changed-files",
       ],
@@ -247,20 +340,40 @@
       addLabels: ["automerge"],
       automerge: true
     },
+    // We need to have up-to-date versions of GHA self-hosted runners otherwise
+    // GitHub refuses them to connect leading to service disruption for us.
+    // This is NOT the ARC controller image!
+    {
+      matchPackageNames: ["summerwind/actions-runner"],
+      addLabels: ["automerge"],
+      automerge: true,
+    },
     // For known GitHub repositories that use GitHub tags/releases of format
     // "v1.2.3" and where the asdf plugin ignores the "v" prefix, we also tell
     // Renovate to ignore it via extractVersion when updating .tool-version file
     {
       matchManagers: ["regex"],
-      matchFileNames: [".tool-versions", "Dockerfile"],
+      matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
         "hadolint/hadolint",
         "hashicorp/terraform",
         "helm/helm",
+        "jonasvinther/medusa",
+        "koalaman/shellcheck",
+        "open-policy-agent/conftest",
         "pre-commit/pre-commit",
         "rhysd/actionlint",
+        "yannh/kubeconform",
       ],
       extractVersion: "^v(?<version>.*)$",
+    },
+    {
+      matchManagers: ["regex"],
+      matchFileNames: ["**/update.sh"],
+      matchPackageNames: [
+        "summerwind/actions-runner-controller",
+      ],
+      extractVersion: "^actions-runner-controller-(?<version>.*)$",
     },
     // For the kustomize GitHub repo that uses GitHub tags/releases of format
     // "kustomize/v1.2.3" and where the asdf plugin ignores this prefix, we also
@@ -302,6 +415,15 @@
     },
   ],
   regexManagers: [
+    // for dependency versions in the Terraform code (like Terraform version itself)
+    {
+      fileMatch: ["\.tf$"],
+      customType: "regex",
+      matchStrings: [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=\\s*\\\"(?<currentValue>.*)\\\"\\s"
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
     {
       fileMatch: ["^Dockerfile$"],
       customType: "regex",
@@ -327,6 +449,18 @@
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    }
+    },
+    // YAML files
+    {
+      fileMatch: ["\.yml$"],
+      customType: "regex",
+      matchStrings: [
+        // for bumping image versions of GHA self-hosted runners
+        "renovate: datasource=(?<datasource>.*?)( versioning=(?<versioning>.*?))?\\s.*?image: (?<depName>.*?):(?<currentValue>.*)\\s",
+        // default
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.* (?<currentValue>.*)\\s",
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
   ],
 }
