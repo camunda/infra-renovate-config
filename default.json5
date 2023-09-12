@@ -143,6 +143,7 @@
         "aio-libs/aiohttp",
         "amazon/aws-for-fluent-bit",
         "ambv/black",
+        "argoproj/argocd",
         "awscli",
         "curlimages/curl",
         "external-secrets",
