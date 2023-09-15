@@ -78,6 +78,11 @@
       addLabels: ["group:golang"],
     },
     {
+      matchCategories: ["js"],
+      groupName: "JavaScript dependencies",
+      addLabels: ["group:javascript"],
+    },
+    {
       matchManagers: ["github-actions"],
       addLabels: ["group:github-actions", "component:ci"],
     },
