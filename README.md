@@ -7,9 +7,11 @@ This is currently used, see the below section. We intend to use it whenever we f
 
 Alphabetically ordered, [check if outdated](https://github.com/search?q=org%3Acamunda+github%3Ecamunda%2Finfra-renovate-config&type=code):
 
+- https://github.com/camunda/camunda-download-center
 - https://github.com/camunda/cawemo-infrastructure
 - https://github.com/camunda/github-actions-recipes
 - https://github.com/camunda/infra-argocd
+- https://github.com/camunda/infra-core
 - https://github.com/camunda/infra-channel-slack-bot
 - https://github.com/camunda/infra-ci-analytics-proxy
 - https://github.com/camunda/infra-jenkins-shared-library
