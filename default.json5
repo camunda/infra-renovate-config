@@ -42,6 +42,7 @@
   },
   lockFileMaintenance: {
     addLabels: ["automerge"],
+    schedule: "every weekend",
     automerge: true,
     enabled: true
   },
@@ -238,7 +239,7 @@
         "jetstack/cert-manager",
         "jimmidyson/configmap-reload",
         "Jinja2",
-        "^kubectl$",
+        "kubectl",
         "kube-state-metrics",
         "kubernetes-replicator",
         "mikefarah/yq",
