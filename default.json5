@@ -229,6 +229,7 @@
         "google-cloud-bigquery",
         "google-cloud-pubsub",
         "google-cloud-storage",
+        "gravitational/teleport",
         "grafana",
         "hashicorp/setup-terraform",
         "hashicorp/vault",
