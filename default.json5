@@ -363,7 +363,6 @@
       matchManagers: ["regex"],
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
-        "gravitational/teleport",
         "hadolint/hadolint",
         "hashicorp/terraform",
         "helm/helm",
