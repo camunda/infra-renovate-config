@@ -88,6 +88,11 @@
       addLabels: ["group:github-actions", "component:ci"],
     },
     {
+      matchPackagePatterns: ["velero/.+"],
+      groupName: "Velero-related components",
+      addLabels: ["group:velero"],
+    },
+    {
       matchPackagePatterns: ["prom/.*"],
       groupName: "Prometheus-related components",
       addLabels: ["group:prometheus"],
@@ -265,7 +270,7 @@
         "terraform-docs",
         "terraform-linters/tflint",
         "tj-actions/changed-files",
-        "velero/velero.*",
+        "velero/.+",
         "vouch/vouch-proxy",
       ],
       addLabels: ["automerge"],
