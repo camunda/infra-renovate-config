@@ -430,7 +430,7 @@
       },
     },
   ],
-  regexManagers: [
+  customManagers: [
     // for dependency versions in the Terraform code (like Terraform version itself)
     {
       fileMatch: ["\.tf$"],
