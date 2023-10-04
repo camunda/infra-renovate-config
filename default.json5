@@ -452,7 +452,7 @@
     {
       "customType": "regex",
       "fileMatch": ["\.tool-versions$"],
-      "matchStrings": ["renovate-teleport\\s.* (?<currentValue>.*)\\s"],
+      "matchStrings": ["renovate-teleport:\\s.* (?<currentValue>.*)\\s"],
       "depNameTemplate": "teleport",
       "versioningTemplate": "semver",
       "datasourceTemplate": "custom.teleport", // see customDatasources.teleport in this file
