@@ -448,6 +448,15 @@
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
+    // For Teleport version (from custom datasource)
+    {
+      "customType": "regex",
+      "fileMatch": ["\.tool-versions$"],
+      "matchStrings": ["renovate-teleport\\s.* (?<currentValue>.*)\\s"],
+      "depNameTemplate": "teleport",
+      "versioningTemplate": "semver",
+      "datasourceTemplate": "custom.teleport", // see customDatasources.teleport in this file
+    },
     // for asdf-vm.org tool versions
     {
       fileMatch: ["\.tool-versions$"],
@@ -479,4 +488,14 @@
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
   ],
+  customDatasources: {
+    teleport: {
+      // Latest version for us == current one used in Camunda Teleport SaaS:
+      // curl -s https://camunda.teleport.sh/webapi/ping | jq -r '.server_version'
+      "defaultRegistryUrlTemplate": "https://camunda.teleport.sh/webapi/ping",
+      "transformTemplates": [
+        "{\"releases\": [{\"version\": $$.server_version}]}"
+      ]
+    }
+  }
 }
