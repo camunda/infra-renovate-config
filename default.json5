@@ -387,7 +387,6 @@
       extractVersion: "^v(?<version>.*)$",
     },
     {
-      matchManagers: ["custom.regex"],
       matchFileNames: ["**/update.sh"],
       matchPackageNames: [
         "summerwind/actions-runner-controller",
