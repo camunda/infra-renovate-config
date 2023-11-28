@@ -371,7 +371,6 @@
     // "v1.2.3" and where the asdf plugin ignores the "v" prefix, we also tell
     // Renovate to ignore it via extractVersion when updating .tool-version file
     {
-      matchManagers: ["custom.regex"],
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
         "hadolint/hadolint",
@@ -397,7 +396,6 @@
     // "kustomize/v1.2.3" and where the asdf plugin ignores this prefix, we also
     // tell Renovate to ignore it via extractVersion when updating .tool-version
     {
-      matchManagers: ["custom.regex"],
       matchFileNames: [".tool-versions", "Dockerfile"],
       matchPackageNames: [
         "kubernetes-sigs/kustomize",
