@@ -208,6 +208,7 @@
       matchUpdateTypes: ["patch"],
       matchPackagePatterns: [
         "actions/checkout",
+        "actions/setup-go",
         "actions/setup-python",
         "adrienverge/yamllint",
         "aio-libs/aiohttp",
@@ -284,6 +285,7 @@
       matchUpdateTypes: ["minor"],
       matchPackagePatterns: [
         "actions/checkout",
+        "actions/setup-go",
         "actions/setup-python",
         "adrienverge/yamllint",
         "alertmanager",
@@ -341,6 +343,7 @@
       matchUpdateTypes: ["major"],
       matchPackagePatterns: [
         "actions/checkout",
+        "actions/setup-go",
         "actions/setup-python",
         "gspread",
         "^node$",
