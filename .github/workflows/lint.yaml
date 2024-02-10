@@ -16,7 +16,7 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.x'
-    - uses: pre-commit/action@v3.0.0
+    - uses: pre-commit/action@v3.0.1
       name: Validate renovate5.json
       with:
         extra_args: --all-files --verbose
@@ -24,7 +24,7 @@ jobs:
       run: |
         cp default.json5 .github/renovate.json5  # renovate-config-validator hook can only validate files that are called renovate.json5
         git add .github/renovate.json5
-    - uses: pre-commit/action@v3.0.0
+    - uses: pre-commit/action@v3.0.1
       name: Validate default5.json
       with:
         extra_args: --all-files --verbose
