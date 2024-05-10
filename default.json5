@@ -417,21 +417,21 @@
       matchHost: "https://europe-west1-docker.pkg.dev/ci-30-162810/main",
       authType: "Basic",
       encrypted: {
-        token: ""
+        token: "***REMOVED***"
       },
     },
     {
       matchHost: "https://europe-west1-docker.pkg.dev/camunda-internal/main",
       authType: "Basic",
       encrypted: {
-        token: ""
+        token: "***REMOVED***"
       },
     },
     {
       matchHost: "https://europe-west1-docker.pkg.dev/camunda-public/main",
       authType: "Basic",
       encrypted: {
-        token: ""
+        token: "***REMOVED***"
       },
     },
   ],
