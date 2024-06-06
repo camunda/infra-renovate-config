@@ -109,10 +109,12 @@
       addLabels: ["app:cert-manager", "component:ingress"],
     },
     {
+      matchDepPatterns: ["argocd", "dex"],
+      excludeDepNames: ["argocd-operator"],
       matchPackagePatterns: ["argocd", "dex"],
       excludePackagePatterns: ["argocd-operator"],
       groupName: "ArgoCD components",
-      addLabels: ["app:argocd", "component:gitops"]
+      addLabels: ["app:argocd", "component:gitops"],
     },
     {
       matchPackagePatterns: ["argocd-operator"],
@@ -410,6 +412,15 @@
     {
       matchPackageNames: ["kubernetes/kubectl"],
       extractVersion: "^kubernetes-(?<version>.*)$",
+    },
+    // Custom regex versioning scheme
+    // Very useful for monorepos that prefix the release version with a component name
+    // e.g. actions/actions-runner-controller -> gha-runner-scale-set-x.x.x
+    {
+      matchPackageNames: [
+        "actions/actions-runner-controller",
+      ],
+      versioning: "regex:^(?<compatibility>.*)-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
     }
   ],
   hostRules: [
@@ -432,6 +443,14 @@
       authType: "Basic",
       encrypted: {
         token: "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",
+      },
+    },
+    {
+      matchHost: "https://registry.camunda.cloud",
+      hostType: "docker",
+      authType: "Basic",
+      encrypted: {
+        token: "wcFMA/xDdHCJBTolAQ//WHgBY5YtEVtzeNAzO3xDpfAj8t9/Gr6wgG1Y9E9Tm/aw0LyY+jxay9EJFo/n9PwZnStGLFl0DWkXsVn/7YS7kT9+WePLGlAWcqI/xRwRXTz6ftHLdQBnwwUVgGzI5H1g/fjD5ID5yXgBBst+lvc9FSmmXqkG6psInl+OxrcQIQaZvW48IrDoUpfhAElcD0Z8v15INe/riRU8a+eehpdYz/0/AzACeSPsGIKbmQNZEIlh7QX0qHeOjZ0SQrxMqI4lO6fzTnluJUh9kfnNeTvD5DM1yFuRxK76IPYiAYfZYSpHAN0Y+59R/wcc6xy0DsNY1wJRM4G0H/cP/9sWYl9r8RABkeyxCGjzAwxSrScamljLRGPBa/3Hq3oUMt0HVAW2SsFPLKMZxPwlWKysprKzu3OcuH21II50+1ISYB8N3E4aL3WjeNLqaBgDUfD+szFdXv1hA2MzzRgEByj2CNRyuzHLDy3v0CDE0oxNvF40pqoR746EijQCN0pn+CiV9oyyWxTGmotJGOBTkLT35fan8gWGqNIce0RB7oO73Ka/RAjjCFjKF+mmXL+0TuV6v363WpX6aYynkVt8Sfhb0P3ZIf9qC1KaRUi54LMg4g2gQ6cyWRmXHQYTpQt33sHl0QAOWZozpTPQuorqVg67smSkVptBcucFrHP/HHnqKf0mIjbSmwHCUUJzLnTN74eP28fwPFEw8m47j1M4dDcR+TtV83BlpueA9s5AGkvfrMj5UvIqq27q4yF7m7xi9alpVY4pQB2UuVxbdqBNRryjF6tHsIEe10uAblCjkUOuTaAHK9SZ4iW2xSwn2I0YvF95UzJImtTS+vUywwQ/orKKrmNcfZkFCSyTubhADr6hzEM846jDT9ldl1ycJPtO0q+Y",
       },
     },
   ],
