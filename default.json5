@@ -109,10 +109,12 @@
       addLabels: ["app:cert-manager", "component:ingress"],
     },
     {
+      matchDepPatterns: ["argocd", "dex"],
+      excludeDepNames: ["argocd-operator"],
       matchPackagePatterns: ["argocd", "dex"],
       excludePackagePatterns: ["argocd-operator"],
       groupName: "ArgoCD components",
-      addLabels: ["app:argocd", "component:gitops"]
+      addLabels: ["app:argocd", "component:gitops"],
     },
     {
       matchPackagePatterns: ["argocd-operator"],
