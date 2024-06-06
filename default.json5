@@ -410,6 +410,15 @@
     {
       matchPackageNames: ["kubernetes/kubectl"],
       extractVersion: "^kubernetes-(?<version>.*)$",
+    },
+    // Custom regex versioning scheme
+    // Very useful for monorepos that prefix the release version with a component name
+    // e.g. actions/actions-runner-controller -> gha-runner-scale-set-x.x.x
+    {
+      matchPackageNames: [
+        "actions/actions-runner-controller",
+      ],
+      versioning: "regex:^(?<compatibility>.*)-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
     }
   ],
   hostRules: [
