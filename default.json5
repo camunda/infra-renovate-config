@@ -217,6 +217,7 @@
         "alertmanager",
         "amazon/aws-for-fluent-bit",
         "aquasecurity/tfsec",
+        "aquasecurity/trivy",
         "argocd",
         "autoscaling/cluster-autoscaler",
         "awscli",
@@ -372,6 +373,7 @@
     {
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
+        "aquasecurity/trivy",
         "hadolint/hadolint",
         "hashicorp/terraform",
         "helm/helm",
