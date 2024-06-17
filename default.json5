@@ -216,7 +216,6 @@
         "aio-libs/aiohttp",
         "alertmanager",
         "amazon/aws-for-fluent-bit",
-        "aquasecurity/tfsec",
         "aquasecurity/trivy",
         "argocd",
         "autoscaling/cluster-autoscaler",
