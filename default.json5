@@ -88,6 +88,11 @@
       addLabels: ["group:github-actions", "component:ci"],
     },
     {
+      matchPackageNames: ["/infra-actions-runner/"],
+      groupName: "GitHub Self-Hosted runners",
+      addLabels: ["group:github-runners", "component:ci"],
+    },
+    {
       matchPackageNames: ["/velero/.+/"],
       groupName: "Velero-related components",
       addLabels: ["group:velero"],
