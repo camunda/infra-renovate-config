@@ -282,7 +282,7 @@
         "slack-bolt",
         "/sonatype/nexus3/",
         "teleport",
-        "hahsicorp/terraform",
+        "hashicorp/terraform",
         "/terraform-aws-modules/.+/",
         "terraform-docs",
         "terraform-linters/tflint",
