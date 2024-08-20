@@ -202,7 +202,8 @@
     {
       matchUpdateTypes: ["major", "minor"],
       matchPackageNames: [
-        "kubectl",
+        "kubernetes/kubectl",
+        "kubernetes/kubernetes",
         "/autoscaling/cluster-autoscaler/"
       ],
       enabled: false,
@@ -259,8 +260,9 @@
         "/ingress-nginx/controller/",
         "/jetstack/cert-manager/",
         "/jimmidyson/configmap-reload/",
-        "Jinja2",
+        "jinja2",
         "jonasvinther/medusa",
+        "kubernetes/kubectl",
         "kubernetes/kubernetes",
         "/kube-state-metrics/",
         "/kubecost-cost-model/",
@@ -321,7 +323,7 @@
         "google-cloud-storage",
         "/grafana/",
         "/jimmidyson/configmap-reload/",
-        "Jinja2",
+        "jinja2",
         "jonasvinther/medusa",
         "/infra-channel-slack-bot/",
         "/infra-dri-bot/",
@@ -361,7 +363,7 @@
         "actions/setup-go",
         "actions/setup-python",
         "/gspread/",
-        "/node/",
+        "node",
         "/pre-commit/.+/",
         "psf/black",
         "pytz",
