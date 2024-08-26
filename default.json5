@@ -230,6 +230,7 @@
         "/amazon/aws-for-fluent-bit/",
         "/aquasecurity/trivy/",
         "/argocd/",
+        "argoproj/argo-cd",
         "/autoscaling/cluster-autoscaler/",
         "aws/aws-cli",
         "/blackbox-exporter/",
