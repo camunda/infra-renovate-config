@@ -424,6 +424,8 @@
       versioning: "regex:^(?<compatibility>.*)-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
     }
   ],
+  // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
+  // https://developer.mend.io/github/camunda/-/settings
   hostRules: [
     {
       matchHost: "https://europe-west1-docker.pkg.dev/v2/ci-30-162810/main",
