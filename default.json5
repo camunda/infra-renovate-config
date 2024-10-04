@@ -221,7 +221,6 @@
     {
       matchUpdateTypes: ["patch"],
       matchPackageNames: [
-        "actionlint",
         "actions/checkout",
         "actions/setup-go",
         "actions/setup-python",
@@ -388,7 +387,6 @@
     {
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
-        "actionlint",
         "aquasecurity/trivy",
         "hadolint/hadolint",
         "hashicorp/terraform",
