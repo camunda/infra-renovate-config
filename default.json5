@@ -237,7 +237,6 @@
         "/busybox/",
         "/camunda-ci-dashboard/",
         "/camunda_infra-k8s-webhook/",
-        "/camunda-internal_argocd_sidecar/",
         "/cloud-sql-proxy/",
         "/conftest/",
         "/curlimages/curl/",
