@@ -21,7 +21,7 @@ For these `automerge` dependencies renovate is going to merge it's own PRs right
 ### Manual Merges
 If you currently own the `Maintenance DRI` role and need to handle PR reviews of our weekly renovate update message (e.g. [this one](https://camunda.slack.com/archives/CHY2S7KDJ/p1730103656096109)), make sure of the following:
 * Make sure to read the [Confluence Page](https://confluence.camunda.com/display/SRE/Infra+Maintenance+Process+and+DRI+role) about the role itself
-* If you're unsure about the impact of a change:
+* If you're unsure about the impact of an upgrade:
   1.  Refer to our [Upgrade Guides](https://confluence.camunda.com/display/SRE/Upgrade+Guides). If there's none:
   2. Check Slack for past conversations about the topic. If there's nothing:
   3. ask your teammates in [infra-internal](https://camunda.slack.com/archives/CHY2S7KDJ).
