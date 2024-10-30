@@ -25,7 +25,7 @@ If you currently own the `Maintenance DRI` role and need to handle PR reviews of
   1.  Refer to our [Upgrade Guides](https://confluence.camunda.com/display/SRE/Upgrade+Guides). If there's none:
   2. Check Slack for past conversations about the topic. If there's nothing:
   3. ask your teammates in [infra-internal](https://camunda.slack.com/archives/CHY2S7KDJ).
-  4. In any case: If you feel the current Upgrade Guides are not sufficient: Feel free to create new guides or improve existing ones.
+  4. In any case: Feel free to create missing or improve existing upgrade guides.
   5. Also consider creating smoke tests for certain more complex upgrades. If proven reliable they may contribute increasing our automerge rate in the future.
 
 ## Known Users
