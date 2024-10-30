@@ -16,7 +16,7 @@ It then opens Pull Requests for all dependencies which it is able to spot an upd
 ### Automerges
 Our [config](/default.json5) has an `automerge` section for `patch` and `minor` where we've declared specific dependencies where experience has shown upgrades are safe to merge without human intervention. This may be due to the fact that vendor's have a reputation of respecting the [semVer convention](https://semver.org/) OR we've created a reliable CI test suite for it.
 
-For these `automerge` dependencies renovate is going to merge it's own PRs right away without waiting any human approval whatsoever.
+For these `automerge` dependencies renovate is going to merge it's own PRs without waiting any human approval whatsoever.
 
 ### Manual Merges
 If you currently own the `Maintenance DRI` role and need to handle PR reviews of our weekly renovate update message (e.g. [this one](https://camunda.slack.com/archives/CHY2S7KDJ/p1730103656096109)), make sure of the following:
