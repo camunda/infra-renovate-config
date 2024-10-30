@@ -10,7 +10,7 @@ This is currently used, see the below section. We intend to use it whenever we f
 > [!NOTE] Renovate itself is a SaaS offering which we integrated via Github App into the Camunda organization.
 
 ## Renovate Integration
-In the Infra Team context, renovate runs on schedule once per week for all [known users](#known-users).
+In the Infra Team context, renovate runs on schedule once per week for all [repositories using it](#known-users).
 It then opens Pull Requests for all dependencies which it is able to spot an update for.
 
 ### Automerges
