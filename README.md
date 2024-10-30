@@ -14,7 +14,7 @@ In the Infra Team context, renovate runs on schedule once per week for all [know
 It then opens Pull Requests for all dependencies which it is able to spot an update for.
 
 ### Automerges
-Our [config](/default.json5) has an `automerge` section for `patch` and `minor` where we've declared specific dependencies where experience has shown upgrades are safe to merge without human intervention. This may be due to the fact that vendor's have a reputation of respecting the [semVer convention](https://semver.org/) OR we've created a reliable CI test suite for it.
+Our [config](/default.json5) has an `automerge` section for `patch` and `minor` where we've declared specific dependencies where experience has shown upgrades are safe to merge without human intervention. This is due to either a dependency having a reputation of respecting the [SemVer convention](https://semver.org/) or us having created a reliable CI test suite for it.
 
 For these `automerge` dependencies renovate is going to merge it's own PRs without waiting any human approval whatsoever.
 
