@@ -7,7 +7,8 @@ This is currently used, see the below section. We intend to use it whenever we f
 
 [Renovate](https://docs.renovatebot.com/) is a tool that automates dependency updates in code repositories, ensuring projects stay up-to-date with the latest versions of libraries and packages. It integrates seamlessly with GitHub, scanning project files like package manifests, Dockerfiles, and more to identify outdated dependencies. Once detected, Renovate opens pull requests with updated versions, allowing developers to review and merge these changes. It can be customized to follow specific update schedules, pin or ignore certain dependencies, and enforce semantic versioning, streamlining dependency management in GitHub repositories and reducing the risk of security vulnerabilities.
 
-> [!NOTE] Renovate itself is a SaaS offering which we integrated via Github App into the Camunda organization.
+> [!NOTE]
+> Renovate itself is a SaaS offering which we integrated via Github App into the Camunda organization.
 
 ## Renovate Integration
 In the Infra Team context, renovate runs on schedule once per week for all [repositories using it](#known-users).
@@ -58,3 +59,19 @@ Create a file `.github/renovate.json5`:
   extends: ["github>camunda/infra-renovate-config:default.json5"],
 }
 ```
+
+## Automerge Issues
+
+Sometimes it's not obvious why Automerges do not happen in PRs. This guide may help you fix these problems.
+
+### :package: Wrong package name matcher
+When a renovate PR states " :vertical_traffic_light: Automerge: Disabled by config. Please merge this manually once you are satisfied.",
+you might check the package name (in `packageRules.matchPackageNames`) for correctness.
+The PR needs to state " :vertical_traffic_light: Automerge: Enabled."
+
+### :hourglass_flowing_sand: Delayed Automerges
+Sometimes PRs don't get automerged right away, even when stating that automerge is enabled. One can simply wait for the next regular run or tirgger a run manually on developer.mend.io for the respective repository (`Actions`->`Run Renovate scan`).
+
+### Others
+* [Renovate Automerge FAQ](https://docs.renovatebot.com/key-concepts/automerge/#frequent-problems-and-how-to-resolve-them)
+* [Slack Thread](https://camunda.slack.com/archives/CHY2S7KDJ/p1730987552407409)
