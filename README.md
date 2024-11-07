@@ -70,7 +70,7 @@ you might check the package name (in `packageRules.matchPackageNames`) for corre
 The PR needs to state " :vertical_traffic_light: Automerge: Enabled."
 
 ### :hourglass_flowing_sand: Delayed Automerges
-PRs don't get automerged right away, even when stating that automerge is enabled. One can simply wait for the next regular run or tirgger a run manually on developer.mend.io for the respective repository (`Actions`->`Run Renovate scan`).
+PRs don't get automerged right away, even when stating that automerge is enabled. One can simply wait for the next regular run or trigger a run manually on developer.mend.io for the respective repository (`Actions`->`Run Renovate scan`).
 
 ### Others
 * [Renovate Automerge FAQ](https://docs.renovatebot.com/key-concepts/automerge/#frequent-problems-and-how-to-resolve-them)
