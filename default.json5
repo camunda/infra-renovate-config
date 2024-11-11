@@ -221,6 +221,7 @@
     {
       matchUpdateTypes: ["patch"],
       matchPackageNames: [
+        "/actionlint/",
         "actions/checkout",
         "actions/setup-go",
         "actions/setup-python",
@@ -281,7 +282,6 @@
         "python/cpython",
         "pyyaml",
         "requests",
-        "rhysd/actionlint",
         "slack-bolt",
         "/sonatype/nexus3/",
         "teleport",
@@ -395,7 +395,6 @@
         "koalaman/shellcheck",
         "open-policy-agent/conftest",
         "pre-commit/pre-commit",
-        "rhysd/actionlint",
         "yannh/kubeconform",
       ],
       extractVersion: "^v(?<version>.*)$",
