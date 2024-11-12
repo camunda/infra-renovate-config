@@ -221,6 +221,7 @@
     {
       matchUpdateTypes: ["patch"],
       matchPackageNames: [
+        "/infra-actions-runner/",
         "/actionlint/",
         "actions/checkout",
         "actions/setup-go",
@@ -302,6 +303,7 @@
     {
       matchUpdateTypes: ["minor"],
       matchPackageNames: [
+        "/infra-actions-runner/",
         "actions/checkout",
         "actions/setup-go",
         "actions/setup-python",
