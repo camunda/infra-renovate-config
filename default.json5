@@ -240,6 +240,7 @@
         "/curlimages/curl/",
         "/docker/",
         "docker.elastic.co/eck/eck-operator",
+        "doitintl/kube-no-trouble",
         "/external-dns/",
         "/external-secrets/",
         "fluent/fluent-bit",
