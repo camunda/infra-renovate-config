@@ -356,9 +356,7 @@
     {
       matchUpdateTypes: ["minor", "patch"],
       matchCategories: ["python", "golang"],
-      excludePackageNames: [
-        "encode/httpx" // version 0.28.0 broke functionality once (Nov 2024)
-      ],
+      "matchPackageNames": ["!encode/httpx"], // version 0.28.0 broke functionality once (Nov 2024)
       addLabels: ["automerge"],
       automerge: true
     },
