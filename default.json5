@@ -354,9 +354,15 @@
       automerge: true,
     },
     {
-      matchUpdateTypes: ["minor", "patch"],
+      matchUpdateTypes: ["patch"],
       matchCategories: ["python", "golang"],
-      "matchPackageNames": ["!encode/httpx"], // version 0.28.0 broke functionality once (Nov 2024)
+      addLabels: ["automerge"],
+      automerge: true
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      matchCategories: ["python", "golang"],
+      "matchPackageNames": ["!httpx"], // version 0.28.0 broke functionality once (Nov 2024)
       addLabels: ["automerge"],
       automerge: true
     },
