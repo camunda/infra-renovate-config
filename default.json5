@@ -243,6 +243,7 @@
         "doitintl/kube-no-trouble",
         "/external-dns/",
         "/external-secrets/",
+        "europe-west1-docker.pkg.dev/camunda-internal/main/camunda-internal_argocd_sidecar",
         "europe-west1-docker.pkg.dev/ci-30-162810/main/centos",
         "fluent/fluent-bit",
         "ghcr.io/actions/actions-runner",
@@ -410,6 +411,38 @@
       ],
       extractVersion: "^v(?<version>.*)$",
     },
+
+    // Version bumps of certain sensible dependencies need to match the underlying version bump
+    // e.g. a minor kubernetes bump shouldn't result in a "chore" commitType but rather a "feat".
+    // This avoids unexpected surprises when automerges on patch releases are enabled for packages which consume these dependencies.
+    {
+      matchPackageNames: [
+        "helm/helm",
+        "kubernetes/kubectl",
+        "kubernetes-sigs/kustomize",
+      ],
+      matchUpdateTypes: ["patch"],
+      semanticCommitType: "fix", // indicates a patch version bump
+    },
+    {
+      matchPackageNames: [
+        "helm/helm",
+        "kubernetes/kubectl",
+        "kubernetes-sigs/kustomize",
+      ],
+      matchUpdateTypes: ["minor"],
+      semanticCommitType: "feat", // indicates a minor version bump
+    },
+    {
+      matchPackageNames: [
+        "helm/helm",
+        "kubernetes/kubectl",
+        "kubernetes-sigs/kustomize",
+      ],
+      matchUpdateTypes: ["major"],
+      semanticCommitType: "feat!", // the exlamation mark indicates a breaking change, hence a major version bump
+    },
+
     // For the kustomize GitHub repo that uses GitHub tags/releases of format
     // "kustomize/v1.2.3" and where the asdf plugin ignores this prefix, we also
     // tell Renovate to ignore it via extractVersion when updating .tool-version
