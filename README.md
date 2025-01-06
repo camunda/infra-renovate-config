@@ -40,6 +40,7 @@ Alphabetically ordered, [check if outdated](https://github.com/search?q=org%3Aca
 - https://github.com/camunda/infra-core
 - https://github.com/camunda/infra-channel-slack-bot
 - https://github.com/camunda/infra-ci-analytics-proxy
+- https://github.com/camunda/infra-github-exporter
 - https://github.com/camunda/infra-jenkins-shared-library
 - https://github.com/camunda/infra-k8s-webhook
 - https://github.com/camunda/infra-preview-environments-ingress
