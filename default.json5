@@ -70,6 +70,7 @@
     {
       matchCategories: ["python"],
       groupName: "Python dependencies",
+      matchPackageNames: ["!httpx"], // version 0.28.0 broke functionality for camunda/infra-github-exporter (Nov 2024) and needs to be treated separately
       addLabels: ["group:python"],
     },
     {
@@ -363,7 +364,7 @@
     {
       matchUpdateTypes: ["minor"],
       matchCategories: ["python", "golang"],
-      "matchPackageNames": ["!httpx"], // version 0.28.0 broke functionality once (Nov 2024)
+      matchPackageNames: ["!httpx"], // version 0.28.0 broke functionality for camunda/infra-github-exporter (Nov 2024)
       addLabels: ["automerge"],
       automerge: true
     },
