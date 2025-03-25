@@ -541,6 +541,14 @@
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
+    // for Wiz update script
+    {
+      "fileMatch": ["update.sh$"],
+      customType: "regex",
+      "matchStrings": [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?) registryUrl=(?<registryUrl>.*?)\nVERSION=(?<currentValue>.*)"
+      ],
+    },
     // YAML files
     {
       fileMatch: ["\.yml$"],
