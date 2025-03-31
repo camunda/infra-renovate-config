@@ -558,14 +558,6 @@
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.* (?<currentValue>.*)\\s",
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    },
-    // Wiz CNAPP integration Helm update script
-    {
-      "customType": "regex",
-      "fileMatch": ["kustomize/base/wiz/update.sh","kustomize/base/wiz-eks/update.sh"],
-      "matchStrings": ["VERSION=(?<currentValue>.+?)\\n"],
-      "depNameTemplate": "wiz-kubernetes-integration",
-      "datasourceTemplate": "helm"
     }
   ],
   customDatasources: {
