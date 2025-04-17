@@ -483,6 +483,7 @@
       "ignorePaths": [
         "kustomize/base/wiz/eks/wiz-upstream.yml",
         "kustomize/base/wiz/gke/wiz-upstream.yml"
+      ]
     },
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
