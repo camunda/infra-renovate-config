@@ -476,6 +476,15 @@
       "matchDepNames": ["wiz-kubernetes-integration"],
       "registryUrls": ["https://wiz-sec.github.io/charts"]
     },
+    // Disable updating Docker image tags in Wiz upstream.
+    // It's handled in the Helm chart upgrade by the previous rule.
+    {
+      "matchDatasources": ["docker"],
+      "ignorePaths": [
+        "kustomize/base/wiz/eks/wiz-upstream.yml",
+        "kustomize/base/wiz/gke/wiz-upstream.yml"
+      ]
+    },
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
   // https://developer.mend.io/github/camunda/-/settings
