@@ -558,7 +558,7 @@
     },
     // YAML files
     {
-      managerFilePatterns: ["/\.yml$/"],
+      managerFilePatterns: ["/\.y.?ml$/"],
       customType: "regex",
       matchStrings: [
         // for bumping image versions of GHA self-hosted runners
