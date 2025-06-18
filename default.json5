@@ -31,10 +31,10 @@
     addLabels: ["upgrade:patch"],
   },
   kubernetes: {
-    managerFilePatterns: ["\\.y.?ml$"],
+    managerFilePatterns: ["/\\.y.?ml$/"],
   },
   kustomize: {
-    managerFilePatterns: ["kustomization\\.y.?ml$"],
+    managerFilePatterns: ["/kustomization\\.y.?ml$/"],
   },
   vulnerabilityAlerts: {
     labels: ["security"],
@@ -514,7 +514,7 @@
   customManagers: [
     // for dependency versions in the Terraform code (like Terraform version itself)
     {
-      managerFilePatterns: ["\.tf$"],
+      managerFilePatterns: ["/\.tf$/"],
       customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=\\s*\\\"(?<currentValue>.*)\\\"\\s"
@@ -522,7 +522,7 @@
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
-      managerFilePatterns: ["^Dockerfile$"],
+      managerFilePatterns: ["/^Dockerfile$/"],
       customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s(ARG|ENV) .*?_VERSION=(?<currentValue>.*)\\s",
@@ -532,7 +532,7 @@
     // For Teleport version (from custom datasource)
     {
       "customType": "regex",
-      "managerFilePatterns": ["\.tool-versions$", "update.sh$"],
+      "managerFilePatterns": ["/\.tool-versions$/", "/update.sh$/"],
       "matchStrings": ["renovate-teleport:\\s.*[ =](?<currentValue>.*)\\s"],
       "depNameTemplate": "teleport",
       "versioningTemplate": "semver",
@@ -540,7 +540,7 @@
     },
     // for asdf-vm.org tool versions
     {
-      managerFilePatterns: ["\.tool-versions$"],
+      managerFilePatterns: ["/\.tool-versions$/"],
       customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s.* (?<currentValue>.*)\\s"
@@ -549,7 +549,7 @@
     },
     // for update scripts
     {
-      managerFilePatterns: ["update.sh$"],
+      managerFilePatterns: ["/update.sh$/"],
       customType: "regex",
       matchStrings: [
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
@@ -558,7 +558,7 @@
     },
     // YAML files
     {
-      managerFilePatterns: ["\.yml$"],
+      managerFilePatterns: ["/\.yml$/"],
       customType: "regex",
       matchStrings: [
         // for bumping image versions of GHA self-hosted runners
