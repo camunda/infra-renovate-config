@@ -485,6 +485,18 @@
         "kustomize/base/wiz/gke/wiz-upstream.yml"
       ]
     },
+    // Teleport major updates should use custom manager and datasource
+    {
+      "matchUpdateTypes": ["major"],
+      "matchPackageNames": [
+        "teleport",
+        "public.ecr.aws/gravitational/teleport-ent-distroless"
+      ],
+      "matchManagers": ["regex"],
+      "matchDatasources": ["custom.teleport"],
+      "groupName": "Teleport major updates",
+      "addLabels": ["app:teleport", "upgrade:major"]
+    },
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
   // https://developer.mend.io/github/camunda/-/settings
@@ -532,8 +544,11 @@
     // For Teleport version (from custom datasource)
     {
       "customType": "regex",
-      "managerFilePatterns": ["/\.tool-versions$/", "/update.sh$/"],
-      "matchStrings": ["renovate-teleport:\\s.*[ =](?<currentValue>.*)\\s"],
+      "managerFilePatterns": ["/\.tool-versions$/", "/update.sh$/", "/\.tf$/"],
+      "matchStrings": [
+        "renovate-teleport:\\s.*[ =](?<currentValue>.*)\\s",
+        "terraform.releases.teleport.dev/gravitational/teleport\"\\s*version\\s*=\\s*\"[~^]?(?<currentValue>.*)\"\\s"
+      ],
       "depNameTemplate": "teleport",
       "versioningTemplate": "semver",
       "datasourceTemplate": "custom.teleport", // see customDatasources.teleport in this file
