@@ -99,6 +99,11 @@
       addLabels: ["group:velero"],
     },
     {
+      matchPackageNames: ["vault", "/hashicorp/vault/"],
+      groupName: "vault",
+      addLabels: ["group:vault"],
+    },
+    {
       matchPackageNames: ["/prom/.*/"],
       groupName: "Prometheus-related components",
       addLabels: ["group:prometheus"],
