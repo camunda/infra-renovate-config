@@ -149,6 +149,10 @@
       groupName: "Jenkins plugins",
       addLabels: ["app:jenkins", "component:ci"],
     },
+    {
+      matchPackageNames: [ "hadolint", "hadolint/hadolint" ],
+      groupName: "Hadolint",
+    },
     // disable updates to `latest` versions of our CI images, we use pinned versions
     {
       matchDatasources: ["docker"],
