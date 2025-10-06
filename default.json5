@@ -281,7 +281,7 @@
         "/kubecost-cost-model/",
         "mikefarah/yq",
         "node",
-        "opencost/opencost",
+        "/opencost/opencost/",
         "/pandas/",
         "/peimanja/artifactory_exporter/",
         "peter-evans/create-pull-request",
