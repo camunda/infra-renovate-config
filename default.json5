@@ -510,6 +510,15 @@
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
+    {
+      "matchPackageNames": [
+        "camunda/infra-global-github-actions"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "changelogUrl": "https://github.com/camunda/infra-global-github-actions/compare/{{currentDigest}}..{{newDigest}}"
+    }
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
   // https://developer.mend.io/github/camunda/-/settings
