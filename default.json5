@@ -545,6 +545,11 @@
       token: "{{ secrets.INFRA_CAMUNDA_PUBLIC_HARBOR_TOKEN }}",
     },
   ],
+  registryAliases: {
+    // make renovate resolve images via the upstream DockerHub registry instead of pull-through caches
+    "463214588456.dkr.ecr.eu-central-1.amazonaws.com/dockerhub": "registry-1.docker.io",
+    "europe-west1-docker.pkg.dev/ci-30-162810/dockerhub": "registry-1.docker.io"
+  },
   customManagers: [
     // for dependency versions in the Terraform code (like Terraform version itself)
     {
