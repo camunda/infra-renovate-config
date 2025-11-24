@@ -94,10 +94,7 @@
       addLabels: ["group:github-runners", "component:ci"],
     },
     {
-      matchPackageNames: [
-        "463214588456.dkr.ecr.eu-central-1.amazonaws.com/dockerhub/library/docker",
-        "europe-west1-docker.pkg.dev/ci-30-162810/dockerhub/library/docker"
-      ],
+      matchPackageNames: ["/.*/dockerhub/library/docker$/"],
       groupName: "Docker",
       addLabels: ["group:docker", "component:ci"],
     },
