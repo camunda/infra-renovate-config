@@ -94,7 +94,7 @@
       addLabels: ["group:github-runners", "component:ci"],
     },
     {
-      matchPackageNames: ["/dockerhub/library/docker/"],
+      matchPackageNames: ["/.*/dockerhub/library/docker$/"],
       groupName: "Docker",
       addLabels: ["group:docker", "component:ci"],
     },
