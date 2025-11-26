@@ -613,7 +613,7 @@
       managerFilePatterns: ["/update.sh$/"],
       customType: "regex",
       matchStrings: [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( packageName=(?<packageName>.*?))?( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*?))?\\s.*?=(?<currentValue>.*)\\s"
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( packageName=(?<packageName>.*?))?( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*?))?\\s.*=(?<currentValue>.*)\\s"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
