@@ -312,6 +312,7 @@
         "tj-actions/changed-files",
         "/velero/.+/",
         "/vouch/vouch-proxy/",
+        "wiz-kubernetes-integration",
       ],
       addLabels: ["automerge"],
       automerge: true,
