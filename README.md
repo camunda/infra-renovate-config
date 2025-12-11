@@ -61,6 +61,38 @@ Create a file `.github/renovate.json5`:
 }
 ```
 
+### GKE Kubernetes Version Management
+
+To enable automated patch version updates for GKE Kubernetes versions in Terraform configurations, add a Renovate comment annotation above the version field:
+
+```hcl
+resource "google_container_cluster" "primary" {
+  name     = "my-gke-cluster"
+  location = "us-central1"
+
+  # renovate: datasource=github-releases depName=kubernetes/kubernetes extractVersion=^v(?<version>\d+\.\d+\.\d+).*$
+  min_master_version = "1.28.5-gke.1000"
+}
+```
+
+Or for node pools:
+
+```hcl
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "my-node-pool"
+  cluster    = google_container_cluster.primary.name
+
+  # renovate: datasource=github-releases depName=kubernetes/kubernetes extractVersion=^v(?<version>\d+\.\d+\.\d+).*$
+  version = "1.28.5-gke.1000"
+}
+```
+
+**Key Features:**
+- **Patch updates are automatically merged** (e.g., 1.28.5 → 1.28.6)
+- **Minor and major updates are disabled** (e.g., 1.28.x will not update to 1.29.x)
+- Updates follow the upstream Kubernetes release schedule
+- The `-gke.BUILD` suffix is preserved during updates
+
 ## Automerge Issues
 
 Sometimes it's not obvious why Automerges do not happen in PRs. This guide may help you fix these problems.

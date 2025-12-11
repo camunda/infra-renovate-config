@@ -601,6 +601,17 @@
       "datasourceTemplate": "custom.teleport",
       "versioningTemplate": "semver"
     },
+    // For GKE Kubernetes versions in Terraform
+    // Matches GKE version strings like "1.28.5-gke.1000" and extracts the K8s version
+    // This enables patch-only updates for GKE cluster versions
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/\.tf$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s+(?:min_master_version|kubernetes_version|version)\\s*=\\s*[\"'](?<currentValue>[^\"']+)[\"']"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
     // for asdf-vm.org tool versions
     {
       managerFilePatterns: ["/\.tool-versions$/"],
