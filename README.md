@@ -63,7 +63,7 @@ Create a file `.github/renovate.json5`:
 
 ### GKE Kubernetes Version Management
 
-To enable automated detection and updates for GKE Kubernetes patch versions in Terraform configurations, add a Renovate comment annotation above the version field:
+To enable automated detection and updates for GKE Kubernetes patch versions in Terraform configurations, add a Renovate comment annotation **directly above** the GKE version field:
 
 ```hcl
 resource "google_container_cluster" "primary" {
@@ -86,6 +86,8 @@ resource "google_container_node_pool" "primary_nodes" {
   version = "1.28.5-gke.1000"
 }
 ```
+
+> **Note**: Only add the annotation to GKE-specific version fields (`min_master_version`, `kubernetes_version`, or node pool `version`). The feature is opt-in and will only monitor fields with the annotation.
 
 **How it works:**
 - Renovate extracts the Kubernetes semantic version (e.g., `1.28.5`) from the GKE version string
