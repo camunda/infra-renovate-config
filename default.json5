@@ -220,6 +220,20 @@
       ],
       enabled: false,
     },
+    // GKE Kubernetes versions detected via custom manager
+    // Patch updates are enabled for detection, but automerge is disabled
+    // because GKE-specific build suffixes need manual verification
+    {
+      matchManagers: ["regex"],
+      matchPackageNames: ["kubernetes/kubernetes"],
+      matchFileNames: ["**/*.tf"],
+      matchUpdateTypes: ["patch"],
+      addLabels: ["component:kubernetes", "upgrade:patch"],
+      automerge: false,
+      prBodyNotes: [
+        "⚠️ **GKE Version Update**: Please verify and update the `-gke.BUILD` suffix to a valid build number for your GCP region before merging.",
+      ],
+    },
     // GitHub Actions
     {
       matchUpdateTypes: ["minor", "patch"],
@@ -602,8 +616,10 @@
       "versioningTemplate": "semver"
     },
     // For GKE Kubernetes versions in Terraform
-    // Matches GKE version strings like "1.28.5-gke.1000" and extracts the K8s version
+    // Matches GKE version strings like "1.28.5-gke.1000" and extracts the K8s version for comparison
     // This enables patch-only updates for GKE cluster versions
+    // The pattern follows the same structure as the generic Terraform custom manager above
+    // Required annotation format: # renovate: datasource=... depName=... extractVersion=...
     {
       "customType": "regex",
       "managerFilePatterns": ["/\.tf$/"],

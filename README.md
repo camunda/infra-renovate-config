@@ -63,7 +63,7 @@ Create a file `.github/renovate.json5`:
 
 ### GKE Kubernetes Version Management
 
-To enable automated patch version updates for GKE Kubernetes versions in Terraform configurations, add a Renovate comment annotation above the version field:
+To enable automated detection and updates for GKE Kubernetes patch versions in Terraform configurations, add a Renovate comment annotation above the version field:
 
 ```hcl
 resource "google_container_cluster" "primary" {
@@ -87,11 +87,18 @@ resource "google_container_node_pool" "primary_nodes" {
 }
 ```
 
+**How it works:**
+- Renovate extracts the Kubernetes semantic version (e.g., `1.28.5`) from the GKE version string
+- It compares against upstream Kubernetes releases (e.g., `v1.28.6`)
+- When a new patch version is available, Renovate creates a PR for review
+- **Manual review required**: Update the `-gke.BUILD` suffix to a valid GKE build number before merging
+
 **Key Features:**
-- **Patch updates are automatically merged** (e.g., 1.28.5 → 1.28.6)
+- **Patch updates are automatically detected** with PRs created for review
+- **Automerge is disabled** to allow manual verification of GKE build suffixes
 - **Minor and major updates are disabled** (e.g., 1.28.x will not update to 1.29.x)
 - Updates follow the upstream Kubernetes release schedule
-- The `-gke.BUILD` suffix is preserved during updates
+- PR descriptions include a reminder to verify the GKE build suffix
 
 ## Automerge Issues
 
