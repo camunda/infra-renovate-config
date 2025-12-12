@@ -1,0 +1,127 @@
+---
+name: Renovate – Datasources (Custom)
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+  - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Dry run (do not push changes)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  datasources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: "datasources"
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write  # to verify the deployment originates from an appropriate source
+      pages: write  # to deploy to Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          # Use a token that can push to main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+
+      - name: Install dependencies
+        working-directory: .github/scripts/datasource-generator-cli
+        run: |
+          pip install -r requirements.txt
+
+      - name: Generate datasources
+        working-directory: .github/scripts/datasource-generator-cli
+        run: |
+          python main.py --all --output-dir "$GITHUB_WORKSPACE/datasources"
+
+      - name: Validate generated datasources
+        working-directory: .github/scripts/datasource-generator-cli
+        run: |
+          python -m pytest tests/test_datasource_schema.py::TestGeneratedDatasourceFiles -v \
+            --datasources-dir "$GITHUB_WORKSPACE/datasources"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          # Stage all datasource files (new and modified)
+          git add datasources/
+
+          # Check if there are any staged changes
+          if git diff --cached --quiet datasources/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected in datasources"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected in datasources:"
+            git diff --cached --stat datasources/
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true' && inputs.dry-run != true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add datasources/
+          git commit -m "chore: update datasources [skip ci]"
+          git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Create public directory with only datasources
+        run: |
+          mkdir -p _site/datasources
+          cp datasources/*.json _site/datasources/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  notify-on-failure:
+    if: failure()
+    needs:
+    - datasources
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+    - name: Import Secrets
+      id: secrets
+      uses: hashicorp/vault-action@v3.4.0
+      with:
+        url: ${{ secrets.VAULT_ADDR }}
+        method: approle
+        roleId: ${{ secrets.VAULT_ROLE_ID }}
+        secretId: ${{ secrets.VAULT_SECRET_ID }}
+        exportEnv: false
+        secrets: |
+          secret/data/products/infra/ci/infra-core SLACK_WEBHOOK_INFRA_ALERTS;
+    - name: Send Slack notification
+      uses: 8398a7/action-slack@v3
+      with:
+        text: ":no_entry: Datasource update workflow failed in infra-renovate-config"
+        status: failure
+        channel: '#infra-alerts'
+        fields: repo,action,eventName,ref,workflowRun,job
+      env:
+        SLACK_WEBHOOK_URL: ${{ steps.secrets.outputs.SLACK_WEBHOOK_INFRA_ALERTS }}
