@@ -528,7 +528,47 @@
       // TODO: This is related to https://github.com/camunda/team-infrastructure/issues/954
       "matchPackageNames": ["helm"],
       "allowedVersions": "<4.0.0"
-    }
+    },
+    // GKE-specific rules
+    // Common rule: separate major/minor from patch
+    {
+      matchPackageNames: ["gke"],
+      separateMajorMinor: true,
+      separateMinorPatch: true,
+    },
+    // PATCH updates: separate PR per cluster, automerge
+    {
+      matchPackageNames: ["gke"],
+      matchFileNames: ["camunda-int/**"],
+      matchUpdateTypes: ["patch"],
+      groupName: "gke patch (camunda-int)",
+      groupSlug: "gke",
+      commitMessageTopic: "gke patch (camunda-int)",
+      additionalBranchPrefix: "camunda-int-",
+      addLabels: ["component:gke", "automerge"],
+      automerge: true,
+    },
+    {
+      matchPackageNames: ["gke"],
+      matchFileNames: ["camunda-pub/**"],
+      matchUpdateTypes: ["patch"],
+      groupName: "gke patch (camunda-pub)",
+      groupSlug: "gke",
+      commitMessageTopic: "gke patch (camunda-pub)",
+      additionalBranchPrefix: "camunda-pub-",
+      addLabels: ["component:gke", "automerge"],
+      automerge: true,
+    },
+    // MINOR updates: single PR for all clusters, no automerge
+    {
+      matchPackageNames: ["gke"],
+      matchUpdateTypes: ["minor"],
+      groupName: "gke minor (all clusters)",
+      groupSlug: "gke",
+      commitMessageTopic: "gke minor (all clusters)",
+      addLabels: ["component:gke"],
+      automerge: false,
+    },
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
   // https://developer.mend.io/github/camunda/-/settings
@@ -631,8 +671,33 @@
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
+    // GKE versions
+    {
+      customType: "regex",
+      managerFilePatterns: ["/\.tf$/"],
+      matchStrings: [
+        "#\\s*renovate:\\s*datasource=custom\\.gke-(?<channel>rapid|regular|stable|extended)\\n\\s*\\S+\\s*=\\s*\"(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+-gke\\.[0-9]+)\""
+      ],
+      depNameTemplate: "gke",
+      datasourceTemplate: "custom.gke-{{{channel}}}",
+      versioningTemplate: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-gke\\.(?<build>\\d+)$"
+    }
   ],
   customDatasources: {
+    // GKE release channel datasources
+    "gke-rapid": {
+      "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/gke-rapid.json",
+      "format": "json"
+    },
+    "gke-regular": {
+      "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/gke-regular.json",
+      "format": "json"
+    },
+    "gke-stable": {
+      "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/gke-stable.json",
+      "format": "json"
+    },
+    // Teleport version datasource
     teleport: {
       // Latest version for us == current one used in Camunda Teleport SaaS:
       // curl -s https://camunda.teleport.sh/webapi/ping | jq -r '.server_version'
