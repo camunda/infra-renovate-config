@@ -1,0 +1,43 @@
+---
+name: Tests
+
+on:
+  pull_request:
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      datasource-generator-cli: ${{ steps.filter.outputs.datasource-generator-cli }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            datasource-generator-cli:
+            - '.github/scripts/datasource-generator-cli/**'
+
+  datasource-generator-cli:
+    needs: changes
+    if: needs.changes.outputs.datasource-generator-cli == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+
+      - name: Install dependencies
+        working-directory: .github/scripts/datasource-generator-cli
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: .github/scripts/datasource-generator-cli
+        run: |
+          python -m pytest tests/ -v --tb=short
