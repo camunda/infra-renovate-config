@@ -545,7 +545,8 @@
       groupSlug: "gke",
       commitMessageTopic: "gke patch (camunda-int)",
       additionalBranchPrefix: "camunda-int-",
-      addLabels: ["component:gke", "automerge"],
+      // Allow GKE patch upgrades to auto-merge by bypassing TF plan check
+      addLabels: ["component:gke", "automerge", "tf-plan-reviewed"],
       automerge: true,
     },
     {
@@ -556,7 +557,8 @@
       groupSlug: "gke",
       commitMessageTopic: "gke patch (camunda-pub)",
       additionalBranchPrefix: "camunda-pub-",
-      addLabels: ["component:gke", "automerge"],
+    // Allow GKE patch upgrades to auto-merge by bypassing TF plan check
+      addLabels: ["component:gke", "automerge", "tf-plan-reviewed"],
       automerge: true,
     },
     // MINOR updates: single PR for all clusters, no automerge
