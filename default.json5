@@ -227,6 +227,21 @@
       addLabels: ["automerge"],
       automerge: true,
     },
+    // Automerge fossa/* composite actions digest updates from infra-global-github-actions
+    {
+      matchUpdateTypes: ["digest"],
+      matchDepNames: ["camunda/infra-global-github-actions"],
+      matchJsonata: ["$contains(replaceString, 'camunda/infra-global-github-actions/fossa/')"],
+      groupName: "infra-global-github-actions fossa",
+      additionalBranchPrefix: "fossa-",
+      commitMessageTopic: "infra-global-github-actions/fossa/* digest",
+      commitMessageExtra: "to {{newDigestShort}}",
+      prBodyNotes: [
+        "This PR updates the digest for **fossa/* composite actions** from [camunda/infra-global-github-actions](https://github.com/camunda/infra-global-github-actions/tree/main/fossa).",
+      ],
+      addLabels: ["automerge"],
+      automerge: true,
+    },
     // Patches
     // Those are tested packages, and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
