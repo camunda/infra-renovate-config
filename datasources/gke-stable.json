@@ -1,12 +1,16 @@
 {
   "releases": [
     {
+      "version": "1.33.5-gke.2019000",
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
+    },
+    {
       "version": "1.33.5-gke.1956000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.33.5-gke.1308000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.33.5-gke.1162000",
@@ -57,12 +61,16 @@
       "releaseTimestamp": "2025-09-11T00:00:00Z"
     },
     {
+      "version": "1.32.9-gke.1675000",
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
+    },
+    {
       "version": "1.32.9-gke.1632000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.32.9-gke.1239000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.32.9-gke.1108000",
@@ -145,12 +153,16 @@
       "releaseTimestamp": "2025-07-25T00:00:00Z"
     },
     {
+      "version": "1.31.14-gke.1114000",
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
+    },
+    {
       "version": "1.31.14-gke.1081000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.31.13-gke.1139000",
-      "releaseTimestamp": "2026-01-07T00:00:00Z"
+      "releaseTimestamp": "2026-01-15T00:00:00Z"
     },
     {
       "version": "1.31.13-gke.1023000",
@@ -215,10 +227,6 @@
     {
       "version": "1.31.8-gke.1113000",
       "releaseTimestamp": "2025-07-25T00:00:00Z"
-    },
-    {
-      "version": "1.31.8-gke.1045000",
-      "releaseTimestamp": "2025-06-18T00:00:00Z"
     },
     {
       "version": "1.30.14-gke.1130000",
@@ -287,10 +295,6 @@
     {
       "version": "1.30.12-gke.1086000",
       "releaseTimestamp": "2025-07-25T00:00:00Z"
-    },
-    {
-      "version": "1.30.12-gke.1033000",
-      "releaseTimestamp": "2025-06-18T00:00:00Z"
     }
   ]
 }
