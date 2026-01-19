@@ -227,17 +227,52 @@
       addLabels: ["automerge"],
       automerge: true,
     },
-    // Automerge fossa/* composite actions digest updates from infra-global-github-actions
+    // Automerge composite actions digest updates from infra-global-github-actions
+    // Grouped by function for easier maintenance. Add new subfolders to the appropriate group.
+    // Group: fossa (license compliance)
     {
       matchUpdateTypes: ["digest"],
       matchDepNames: ["camunda/infra-global-github-actions"],
       matchJsonata: ["$contains(replaceString, 'camunda/infra-global-github-actions/fossa/')"],
       groupName: "infra-global-github-actions fossa",
       additionalBranchPrefix: "fossa-",
-      commitMessageTopic: "infra-global-github-actions/fossa/* digest",
+      commitMessageTopic: "infra-global-github-actions (fossa) digest",
       commitMessageExtra: "to {{newDigestShort}}",
       prBodyNotes: [
-        "This PR updates the digest for **fossa/* composite actions** from [camunda/infra-global-github-actions](https://github.com/camunda/infra-global-github-actions/tree/main/fossa).",
+        "This PR updates the digest for **fossa-related composite actions** from [camunda/infra-global-github-actions](https://github.com/camunda/infra-global-github-actions/tree/main/fossa).",
+      ],
+      addLabels: ["automerge"],
+      automerge: true,
+    },
+    // Group: ci-tooling (CI/Build related actions)
+    {
+      matchUpdateTypes: ["digest"],
+      matchDepNames: ["camunda/infra-global-github-actions"],
+      matchJsonata: ["$contains(replaceString, 'camunda/infra-global-github-actions/build-docker-image@')"],
+      groupName: "infra-global-github-actions ci-tooling",
+      additionalBranchPrefix: "ci-tooling-",
+      commitMessageTopic: "infra-global-github-actions (ci tooling) digest",
+      commitMessageExtra: "to {{newDigestShort}}",
+      prBodyNotes: [
+        "This PR updates the digest for **ci-tooling composite actions** from [camunda/infra-global-github-actions](https://github.com/camunda/infra-global-github-actions).",
+      ],
+      addLabels: ["automerge"],
+      automerge: true,
+    },
+    // Group: infra-utilities (auth, PR management, team utilities)
+    {
+      matchUpdateTypes: ["digest"],
+      matchDepNames: ["camunda/infra-global-github-actions"],
+      matchJsonata: [
+        "$contains(replaceString, 'camunda/infra-global-github-actions/generate-github-app-token-from-vault-secrets@') \
+         or $contains(replaceString, 'camunda/infra-global-github-actions/teams/infra/')"
+      ],
+      groupName: "infra-global-github-actions infra-utilities",
+      additionalBranchPrefix: "infra-utilities-",
+      commitMessageTopic: "infra-global-github-actions (infra utilities) digest",
+      commitMessageExtra: "to {{newDigestShort}}",
+      prBodyNotes: [
+        "This PR updates the digest for **infra-utilities composite actions** (auth, PR management, team utilities) from [camunda/infra-global-github-actions](https://github.com/camunda/infra-global-github-actions).",
       ],
       addLabels: ["automerge"],
       automerge: true,
