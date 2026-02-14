@@ -11,7 +11,7 @@ repos:
     exclude: ^datasources/
   - id: check-added-large-files
 - repo: https://github.com/rhysd/actionlint
-  rev: v1.7.10
+  rev: v1.7.11
   hooks:
   - id: actionlint
 - repo: https://github.com/renovatebot/pre-commit-hooks
