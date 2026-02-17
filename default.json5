@@ -167,11 +167,10 @@
       ],
       allowedVersions: "!/.*vlatest$/",
     },
-    // Custom versioning for CI images with Chrome version prefix (e.g., 78v1.0.33)
+    // Custom versioning for CI images with Chrome version prefix (e.g., 78v1.0.33 or 112v1.0.33)
     {
-      matchDatasources: ["docker"],
       matchPackageNames: [
-        "/europe-west1-docker.pkg.dev/ci-30-162810/main/chrome/",
+        "europe-west1-docker.pkg.dev/ci-30-162810/main/chrome",
       ],
       versioning: "regex:^(?<compatibility>\\d+)v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
     },
