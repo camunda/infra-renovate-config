@@ -435,7 +435,7 @@
     },
     {
       matchUpdateTypes: ["patch"],
-      matchCategories: ["python", "golang"],
+      matchCategories: ["python", "golang", "java"],
       addLabels: ["automerge"],
       automerge: true
     },
