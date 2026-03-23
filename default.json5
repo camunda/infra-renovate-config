@@ -159,6 +159,10 @@
       matchPackageNames: [ "hadolint", "hadolint/hadolint" ],
       groupName: "Hadolint",
     },
+    {
+      matchPackageNames: [ "markdownlint-cli2", "DavidAnson/markdownlint-cli2" ],
+      groupName: "markdownlint-cli2",
+    },
     // disable updates to `latest` versions of our CI images, we use pinned versions
     {
       matchDatasources: ["docker"],
