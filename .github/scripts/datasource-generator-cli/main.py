@@ -12,6 +12,7 @@ from functools import partial
 from pathlib import Path
 
 from sources.gke import GKEChannel, fetch_gke_versions
+from sources.yaegi import fetch_yaegi_go_compat
 
 # Registry of available datasource generators
 DATASOURCE_REGISTRY = {
@@ -34,6 +35,11 @@ DATASOURCE_REGISTRY = {
         "generator": partial(fetch_gke_versions, GKEChannel.EXTENDED),
         "output_file": "gke-extended.json",
         "description": "GKE Extended channel versions",
+    },
+    "yaegi-go-compat": {
+        "generator": fetch_yaegi_go_compat,
+        "output_file": "yaegi-go-compat.json",
+        "description": "Yaegi supported Go version (from go.mod directive)",
     },
 }
 
