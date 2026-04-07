@@ -2,12 +2,15 @@
 Tests for Yaegi Go compatibility datasource generator.
 """
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 
 from sources.yaegi import (
     GO_DIRECTIVE_PATTERN,
     GoCompatRelease,
     extract_go_version,
+    fetch_gomod_last_commit_date,
 )
 
 
@@ -100,3 +103,26 @@ class TestGoCompatRelease:
         release = GoCompatRelease(version="1.22")
         result = release.to_dict()
         assert result == {"version": "1.22"}
+
+
+class TestFetchGomodLastCommitDate:
+    """Tests for fetch_gomod_last_commit_date function."""
+
+    @patch("sources.yaegi.requests.get")
+    def test_returns_commit_date(self, mock_get):
+        """Test that the committer date is returned from the API response."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = [
+            {"commit": {"committer": {"date": "2025-11-15T10:30:00Z"}}}
+        ]
+        mock_get.return_value = mock_response
+        assert fetch_gomod_last_commit_date() == "2025-11-15T10:30:00Z"
+
+    @patch("sources.yaegi.requests.get")
+    def test_raises_on_empty_commits(self, mock_get):
+        """Test that an error is raised when no commits are found."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = []
+        mock_get.return_value = mock_response
+        with pytest.raises(ValueError, match="No commits found"):
+            fetch_gomod_last_commit_date()
