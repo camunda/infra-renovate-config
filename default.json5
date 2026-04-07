@@ -762,11 +762,11 @@
       customType: "regex",
       managerFilePatterns: ["/kustomize\/base\/traefik\/.+\/go\.mod$/"],
       matchStrings: [
-        "^go (?<currentValue>\\d+\\.\\d+)\\s"
+        "(?m)^go (?<currentValue>\\d+\\.\\d+(?:\\.\\d+)?)"
       ],
       depNameTemplate: "yaegi-go-compat",
       datasourceTemplate: "custom.yaegi-go-compat",
-      versioningTemplate: "go-mod-directive"
+      versioningTemplate: "loose"
     }
   ],
   customDatasources: {
