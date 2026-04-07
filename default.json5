@@ -368,6 +368,7 @@
         "slack-bolt",
         "/sonatype/nexus3/",
         "teleport",
+        "traefik",
         "hashicorp/terraform",
         "/terraform-aws-modules\/.+/",
         "terraform-docs/terraform-docs",
