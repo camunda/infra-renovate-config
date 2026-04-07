@@ -635,6 +635,15 @@
       addLabels: ["component:gke"],
       automerge: false,
     },
+    // Traefik plugins: disable built-in gomod manager for the go directive
+    // so that the custom regex manager below (using yaegi-go-compat datasource) is the
+    // sole source of truth for the Go version constraint.
+    {
+      matchDepNames: ["go"],
+      matchManagers: ["gomod"],
+      matchFileNames: ["kustomize/base/traefik/**/go.mod"],
+      enabled: false,
+    },
   ],
   // The following INFRA_* secrets are defined in Renovate App Settings for the camunda GitHub organization
   // https://developer.mend.io/github/camunda/-/settings
@@ -747,6 +756,17 @@
       depNameTemplate: "gke",
       datasourceTemplate: "custom.gke-{{{channel}}}",
       versioningTemplate: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-gke\\.(?<build>\\d+)$"
+    },
+    // Traefik plugins
+    {
+      customType: "regex",
+      managerFilePatterns: ["/kustomize\/base\/traefik\/.+\/go\.mod$/"],
+      matchStrings: [
+        "^go (?<currentValue>\\d+\\.\\d+)\\s"
+      ],
+      depNameTemplate: "yaegi-go-compat",
+      datasourceTemplate: "custom.yaegi-go-compat",
+      versioningTemplate: "go-mod-directive"
     }
   ],
   customDatasources: {
@@ -761,6 +781,13 @@
     },
     "gke-stable": {
       "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/gke-stable.json",
+      "format": "json"
+    },
+    // Yaegi Go compatibility datasource
+    // Tracks the go directive from Yaegi's go.mod to know the current supported Go version
+    // https://github.com/traefik/yaegi
+    "yaegi-go-compat": {
+      "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/yaegi-go-compat.json",
       "format": "json"
     },
     // Teleport version datasource
