@@ -10,13 +10,12 @@ Go version bumps in plugin go.mod files.
 
 import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from typing import Optional
 
 import requests
 
 YAEGI_GOMOD_URL = "https://raw.githubusercontent.com/traefik/yaegi/master/go.mod"
-YAEGI_RELEASES_URL = "https://api.github.com/repos/traefik/yaegi/releases"
+YAEGI_GOMOD_COMMITS_URL = "https://api.github.com/repos/traefik/yaegi/commits?path=go.mod&per_page=1"
 
 # Match the go directive line in go.mod, e.g. "go 1.21"
 GO_DIRECTIVE_PATTERN = re.compile(r"^go\s+(\d+\.\d+)", re.MULTILINE)
@@ -51,11 +50,14 @@ def extract_go_version(gomod_content: str) -> Optional[str]:
     return None
 
 
-def fetch_yaegi_releases(url: str = YAEGI_RELEASES_URL, timeout: int = 30) -> list[dict]:
-    """Fetch Yaegi releases from GitHub API to get timestamps."""
-    response = requests.get(url, timeout=timeout, params={"per_page": 100})
+def fetch_gomod_last_commit_date(url: str = YAEGI_GOMOD_COMMITS_URL, timeout: int = 30) -> str:
+    """Fetch the date of the last commit that modified go.mod in Yaegi's repository."""
+    response = requests.get(url, timeout=timeout)
     response.raise_for_status()
-    return response.json()
+    commits = response.json()
+    if not commits:
+        raise ValueError("No commits found for go.mod in Yaegi repository")
+    return commits[0]["commit"]["committer"]["date"]
 
 
 def fetch_yaegi_go_compat() -> dict:
@@ -72,8 +74,7 @@ def fetch_yaegi_go_compat() -> dict:
     if not go_version:
         raise ValueError("Could not extract go directive from Yaegi go.mod")
 
-    # Use current time as release timestamp since we track the latest state
-    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    timestamp = fetch_gomod_last_commit_date()
 
     release = GoCompatRelease(version=go_version, release_timestamp=timestamp)
 
