@@ -47,6 +47,8 @@ jobs:
 
       - name: Generate datasources
         working-directory: .github/scripts/datasource-generator-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python main.py --all --output-dir "$GITHUB_WORKSPACE/datasources"
 
