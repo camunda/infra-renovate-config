@@ -126,3 +126,31 @@ class TestFetchGomodLastCommitDate:
         mock_get.return_value = mock_response
         with pytest.raises(ValueError, match="No commits found"):
             fetch_gomod_last_commit_date()
+
+    @patch.dict("os.environ", {"GITHUB_TOKEN": "test-token-123"})
+    @patch("sources.yaegi.requests.get")
+    def test_uses_auth_header_when_token_set(self, mock_get):
+        """Test that the Authorization header is set when GITHUB_TOKEN is available."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = [
+            {"commit": {"committer": {"date": "2025-11-15T10:30:00Z"}}}
+        ]
+        mock_get.return_value = mock_response
+        fetch_gomod_last_commit_date()
+        mock_get.assert_called_once()
+        call_kwargs = mock_get.call_args
+        assert call_kwargs.kwargs["headers"]["Authorization"] == "token test-token-123"
+
+    @patch.dict("os.environ", {}, clear=True)
+    @patch("sources.yaegi.requests.get")
+    def test_no_auth_header_when_token_not_set(self, mock_get):
+        """Test that no Authorization header is set when GITHUB_TOKEN is not available."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = [
+            {"commit": {"committer": {"date": "2025-11-15T10:30:00Z"}}}
+        ]
+        mock_get.return_value = mock_response
+        fetch_gomod_last_commit_date()
+        mock_get.assert_called_once()
+        call_kwargs = mock_get.call_args
+        assert "Authorization" not in call_kwargs.kwargs["headers"]

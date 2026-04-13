@@ -8,6 +8,7 @@ This is consumed as a Renovate custom datasource to constrain
 Go version bumps in plugin go.mod files.
 """
 
+import os
 import re
 from dataclasses import dataclass
 from typing import Optional
@@ -52,7 +53,11 @@ def extract_go_version(gomod_content: str) -> Optional[str]:
 
 def fetch_gomod_last_commit_date(url: str = YAEGI_GOMOD_COMMITS_URL, timeout: int = 30) -> str:
     """Fetch the date of the last commit that modified go.mod in Yaegi's repository."""
-    response = requests.get(url, timeout=timeout)
+    headers = {}
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
+    response = requests.get(url, headers=headers, timeout=timeout)
     response.raise_for_status()
     commits = response.json()
     if not commits:
