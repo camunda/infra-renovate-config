@@ -649,6 +649,11 @@
   // https://developer.mend.io/github/camunda/-/settings
   hostRules: [
     {
+      matchHost: "https://europe-west1-docker.pkg.dev/v2/camunda-benchmark/main",
+      authType: "Basic",
+      token: "{{ secrets.INFRA_CAMUNDA_BENCHMARK_GAR_TOKEN }}",
+    },
+    {
       matchHost: "https://europe-west1-docker.pkg.dev/v2/ci-30-162810/main",
       authType: "Basic",
       token: "{{ secrets.INFRA_CAMUNDA_CI_GAR_TOKEN }}",
