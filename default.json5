@@ -449,6 +449,12 @@
       automerge: true
     },
     {
+      matchUpdateTypes: ["patch", "minor"],
+      matchDatasources: ["java-version"],
+      addLabels: ["automerge"],
+      automerge: true
+    },
+    {
       matchUpdateTypes: ["minor"],
       matchCategories: ["python", "golang", "java"],
       matchPackageNames: ["!httpx"], // version 0.28.0 broke functionality for camunda/infra-github-exporter (Nov 2024)
