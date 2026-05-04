@@ -316,8 +316,10 @@
         "/conftest/",
         "/curlimages/curl/",
         "/docker/",
+        "/@docusaurus/.*/",
         "docker.elastic.co/eck/eck-operator",
         "doitintl/kube-no-trouble",
+        "eck-operator",
         "eclipse-temurin",
         "/external-dns/",
         "/external-secrets/",
@@ -443,6 +445,12 @@
     {
       matchUpdateTypes: ["patch"],
       matchCategories: ["python", "golang", "java"],
+      addLabels: ["automerge"],
+      automerge: true
+    },
+    {
+      matchUpdateTypes: ["patch", "minor"],
+      matchDatasources: ["java-version"],
       addLabels: ["automerge"],
       automerge: true
     },
