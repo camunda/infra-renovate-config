@@ -110,6 +110,11 @@
       addLabels: ["group:vault"],
     },
     {
+      matchPackageNames: ["helm", "helm/helm"],
+      groupName: "helm",
+      addLabels: ["group:helm"],
+    },
+    {
       matchPackageNames: ["/prom/.*/"],
       groupName: "Prometheus-related components",
       addLabels: ["group:prometheus"],
@@ -598,7 +603,7 @@
     },
     {
       // TODO: This is related to https://github.com/camunda/team-infrastructure/issues/954
-      "matchPackageNames": ["helm"],
+      "matchPackageNames": ["helm", "helm/helm"],
       "allowedVersions": "<4.0.0"
     },
     // GKE-specific rules
