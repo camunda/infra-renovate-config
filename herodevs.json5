@@ -1,0 +1,25 @@
+// Shared preset for repositories consuming HeroDevs Never-Ending Support (NES) artifacts.
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+
+  packageRules: [
+    // HeroDevs publishes NES Spring artifacts under the original Spring coordinates but with a
+    // versioning suffix:
+    //   {LAST_OSS_VERSION}-spring-{PRODUCT}-{NES_VERSION}     e.g. 3.4.13-spring-boot-3.4.14
+    //
+    // We map both OSS and NES versions to the same major/minor/patch space so Renovate proposes
+    // upgrades transparently:
+    //   3.5.17                          -> major=3 minor=5 patch=17
+    //   3.5.18                          -> major=3 minor=5 patch=18
+    //   3.5.18-spring-boot-3.5.19       -> major=3 minor=5 patch=19   (NES, prod)
+    //   2.7.18-spring-boot-2.7.21-trial -> major=2 minor=7 patch=21 compatibility=trial (NES, trial)
+    //
+    // See camunda/team-infrastructure#1036 for the full rationale.
+    {
+      matchManagers: ["maven", "gradle"],
+      // Catch every `org.springframework` and `org.springframework.X` groupId
+      matchPackageNames: ["/^org\\.springframework(\\..+)?:/"],
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?:\\d+-spring-[a-z]+-\\d+\\.\\d+\\.)?(?<patch>\\d+)(?:-(?<compatibility>[a-z]+))?$",
+    },
+  ],
+}
