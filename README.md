@@ -61,6 +61,12 @@ Create a file `.github/renovate.json5`:
 }
 ```
 
+### Optional presets
+
+| Preset                                       | Purpose                                                                                       |
+| :------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| `github>camunda/infra-renovate-config//herodevs` | Spring NES handling: treats HeroDevs versions (`X.Y.Z-spring-<product>-X.Y.W`) as the next patch of the matching OSS version so Renovate can transparently upgrade from OSS to NES. Use in any repo that consumes Spring artifacts from the HeroDevs Maven repository. |
+
 ## Automerge Issues
 
 Sometimes it's not obvious why Automerges do not happen in PRs. This guide may help you fix these problems.
