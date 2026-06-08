@@ -385,6 +385,7 @@
         "/velero/.+/",
         "/vouch/vouch-proxy/",
         "wiz-kubernetes-integration",
+        "yannh/kubeconform", // CI-only manifest validator; every bump is fully exercised by the all-cluster manifest-diff checks
       ],
       addLabels: ["automerge"],
       automerge: true,
