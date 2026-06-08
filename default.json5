@@ -385,6 +385,7 @@
         "/velero/.+/",
         "/vouch/vouch-proxy/",
         "wiz-kubernetes-integration",
+        "yannh/kubeconform",
       ],
       addLabels: ["automerge"],
       automerge: true,
