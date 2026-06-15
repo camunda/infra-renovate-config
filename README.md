@@ -65,7 +65,8 @@ Create a file `.github/renovate.json5`:
 
 | Preset                                       | Purpose                                                                                       |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| `github>camunda/infra-renovate-config//herodevs` | Spring NES handling: treats HeroDevs versions (`X.Y.Z-spring-<product>-X.Y.W`) as the next patch of the matching OSS version so Renovate can transparently upgrade from OSS to NES. Use in any repo that consumes Spring artifacts from the HeroDevs Maven repository. |
+| `github>camunda/infra-renovate-config:herodevs.json5` | Spring NES handling: treats HeroDevs versions (`X.Y.Z-spring-<product>-X.Y.W`) as the next patch of the matching OSS version so Renovate can transparently upgrade from OSS to NES. Use in any repo that consumes Spring artifacts from the HeroDevs Maven repository. |
+| `github>camunda/infra-renovate-config:rebase.json5` | Sets `rebaseWhen: "conflicted"` so Renovate only rebases PRs on real merge conflicts instead of on every base-branch push, drastically cutting CI cost on high-traffic repos. Opt-in per-PR escape hatches: the `keep-updated` label keeps a PR continuously rebased, the `rebase` label triggers a one-off rebase. Adopt only on repos identified as Renovate-driven CI cost hotspots. |
 
 ## Automerge Issues
 

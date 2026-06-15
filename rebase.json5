@@ -1,0 +1,19 @@
+// Opt-in rebase policy preset.
+//
+// By default Renovate uses `rebaseWhen: "behind-base-branch"`, which rebases (and
+// force-pushes) every open Renovate PR whenever the base branch moves. On high-traffic
+// repositories this re-triggers the full CI suite hundreds of times per PR.
+//
+// This preset only rebases when there is a real merge conflict. PRs that genuinely need to
+// stay continuously up to date can opt back in per-PR via the `keep-updated` label, and a
+// one-off rebase can be requested via the `rebase` label (Renovate removes it afterwards).
+//
+// This is intentionally NOT part of the default preset: low-traffic repositories are fine
+// with the default behavior. Adopt it only on repositories identified as Renovate-driven CI
+// cost hotspots.
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  rebaseWhen: "conflicted",
+  rebaseLabel: "rebase",
+  keepUpdatedLabel: "keep-updated",
+}
