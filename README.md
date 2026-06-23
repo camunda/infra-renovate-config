@@ -43,6 +43,7 @@ Alphabetically ordered, [check if outdated](https://github.com/search?q=org%3Aca
 - https://github.com/camunda/infra-github-exporter
 - https://github.com/camunda/infra-jenkins-shared-library
 - https://github.com/camunda/infra-k8s-webhook
+- https://github.com/camunda/infra-preview-environments-gateway-api
 - https://github.com/camunda/infra-preview-environments-ingress
 - https://github.com/camunda/infra-dri-bot
 - https://github.com/camunda/infra-seed-jobs
