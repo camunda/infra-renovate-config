@@ -403,6 +403,7 @@
         "adrienverge/yamllint",
         "/alertmanager/",
         "/amazon/aws-for-fluent-bit/",
+        "/aquasecurity/trivy/",
         "aws/aws-cli",
         "/blackbox-exporter/",
         "/busybox/",
