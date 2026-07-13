@@ -462,6 +462,14 @@
       addLabels: ["automerge"],
       automerge: true
     },
+    // asdf-managed golang tool version (e.g. .tool-versions), tracked via the
+    // dedicated golang-version datasource rather than the "golang" category
+    {
+      matchUpdateTypes: ["patch", "minor"],
+      matchDatasources: ["golang-version"],
+      addLabels: ["automerge"],
+      automerge: true
+    },
     {
       matchUpdateTypes: ["minor"],
       matchCategories: ["python", "golang", "java"],
