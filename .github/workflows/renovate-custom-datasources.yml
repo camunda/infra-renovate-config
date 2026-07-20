@@ -101,7 +101,7 @@ jobs:
         uses: actions/deploy-pages@v5
 
   notify-on-failure:
-    if: failure()
+    if: failure() && inputs.dry-run != true
     needs:
     - datasources
     runs-on: ubuntu-latest
