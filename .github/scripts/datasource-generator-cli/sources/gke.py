@@ -8,6 +8,8 @@ Supports all GKE release channels: rapid, regular, stable, extended.
 """
 
 import re
+import sys
+import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from datetime import datetime
@@ -30,8 +32,12 @@ class GKEChannel(str, Enum):
 
     @property
     def feed_url(self) -> str:
-        """Get the RSS feed URL for this channel."""
-        return f"https://cloud.google.com/feeds/gke-{self.value}-channel-release-notes.xml"
+        """Get the RSS feed URL for this channel.
+
+        Uses docs.cloud.google.com directly to avoid an unreliable 301 redirect
+        from cloud.google.com that intermittently resolves to an HTML page instead.
+        """
+        return f"https://docs.cloud.google.com/feeds/gke-{self.value}-channel-release-notes.xml"
 
     @property
     def description(self) -> str:
@@ -60,11 +66,36 @@ class Release:
         return result
 
 
-def fetch_feed(url: str, timeout: int = 30) -> str:
-    """Fetch the RSS feed content."""
-    response = requests.get(url, timeout=timeout)
-    response.raise_for_status()
-    return response.text
+def fetch_feed(url: str, timeout: int = 30, max_retries: int = 3) -> str:
+    """Fetch the RSS feed content, with retry logic for transient failures.
+
+    The GKE feed URL at cloud.google.com occasionally returns an HTML page
+    instead of XML (HTTP 200, content-type text/html). This function validates
+    the content-type and retries on such failures.
+    """
+    last_exc: Exception = RuntimeError("No attempts made")
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, timeout=timeout)
+            response.raise_for_status()
+            content_type = response.headers.get("content-type", "")
+            if "xml" not in content_type:
+                raise ValueError(
+                    f"Unexpected content-type '{content_type}' (expected XML). "
+                    f"Response body starts with: {repr(response.content[:200])}"
+                )
+            return response.text
+        except Exception as e:
+            last_exc = e
+            if attempt < max_retries - 1:
+                wait_time = 2**attempt
+                print(
+                    f"  Attempt {attempt + 1}/{max_retries} failed: {e}. "
+                    f"Retrying in {wait_time}s...",
+                    file=sys.stderr,
+                )
+                time.sleep(wait_time)
+    raise last_exc
 
 
 def parse_atom_date(date_str: str) -> Optional[str]:

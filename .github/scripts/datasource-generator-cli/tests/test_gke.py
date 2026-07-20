@@ -20,10 +20,10 @@ class TestGKEChannel:
 
     def test_channel_feed_urls(self):
         """Test that each channel has correct feed URL."""
-        assert GKEChannel.RAPID.feed_url == "https://cloud.google.com/feeds/gke-rapid-channel-release-notes.xml"
-        assert GKEChannel.REGULAR.feed_url == "https://cloud.google.com/feeds/gke-regular-channel-release-notes.xml"
-        assert GKEChannel.STABLE.feed_url == "https://cloud.google.com/feeds/gke-stable-channel-release-notes.xml"
-        assert GKEChannel.EXTENDED.feed_url == "https://cloud.google.com/feeds/gke-extended-channel-release-notes.xml"
+        assert GKEChannel.RAPID.feed_url == "https://docs.cloud.google.com/feeds/gke-rapid-channel-release-notes.xml"
+        assert GKEChannel.REGULAR.feed_url == "https://docs.cloud.google.com/feeds/gke-regular-channel-release-notes.xml"
+        assert GKEChannel.STABLE.feed_url == "https://docs.cloud.google.com/feeds/gke-stable-channel-release-notes.xml"
+        assert GKEChannel.EXTENDED.feed_url == "https://docs.cloud.google.com/feeds/gke-extended-channel-release-notes.xml"
 
     def test_channel_values(self):
         """Test channel string values."""
