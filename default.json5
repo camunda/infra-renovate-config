@@ -417,6 +417,7 @@
         "/docker/",
         "/docker.elastic.co/eck/eck-operator/",
         "/external-dns/",
+        "/external-secrets/",
         "europe-west1-docker.pkg.dev/ci-30-162810/main/centos",
         "fluent/fluent-bit",
         "ghcr.io/actions/actions-runner",
