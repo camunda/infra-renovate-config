@@ -16,7 +16,10 @@
     //
     // See camunda/team-infrastructure#1036 for the full rationale.
     {
-      matchManagers: ["maven", "gradle"],
+      // `custom.regex` covers repository-local custom managers that track Spring
+      // version properties (e.g. <version.spring-boot>) outside the built-in
+      // Maven manager's view, so the same NES-aware versioning applies there too.
+      matchManagers: ["maven", "gradle", "custom.regex"],
       // Catch every `org.springframework` and `org.springframework.X` groupId
       matchPackageNames: ["/^org\\.springframework(\\..+)?:/"],
       versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?:\\d+-spring-[a-z]+-\\d+\\.\\d+\\.)?(?<patch>\\d+)(?:-(?<compatibility>[a-z]+))?$",
