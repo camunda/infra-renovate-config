@@ -1,16 +1,20 @@
 {
   "releases": [
     {
+      "version": "1.36.2-gke.2064000",
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
+    },
+    {
       "version": "1.36.2-gke.1498000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.36.2-gke.1346000",
-      "releaseTimestamp": "2026-07-10T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.36.0-gke.4681000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.36.0-gke.4447000",
@@ -61,12 +65,20 @@
       "releaseTimestamp": "2026-05-13T00:00:00Z"
     },
     {
+      "version": "1.35.6-gke.1641000",
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
+    },
+    {
+      "version": "1.35.6-gke.1638000",
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
+    },
+    {
       "version": "1.35.6-gke.1258000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.35.6-gke.1250000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.35.6-gke.1127000",
@@ -205,12 +217,16 @@
       "releaseTimestamp": "2026-01-07T00:00:00Z"
     },
     {
+      "version": "1.34.9-gke.1610000",
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
+    },
+    {
       "version": "1.34.9-gke.1322000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.34.9-gke.1287000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.34.9-gke.1131000",
@@ -353,12 +369,16 @@
       "releaseTimestamp": "2026-01-07T00:00:00Z"
     },
     {
+      "version": "1.33.13-gke.1269000",
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
+    },
+    {
       "version": "1.33.13-gke.1109000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.33.13-gke.1101000",
-      "releaseTimestamp": "2026-07-16T00:00:00Z"
+      "releaseTimestamp": "2026-07-24T00:00:00Z"
     },
     {
       "version": "1.33.13-gke.1011000",
