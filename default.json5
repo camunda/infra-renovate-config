@@ -440,6 +440,7 @@
         "mikefarah/yq",
         "node",
         "open-policy-agent/conftest",
+        "/opencost/opencost/",
         "peter-evans/create-pull-request",
         "/pre-commit/",
         "/prom/.*/",
