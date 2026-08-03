@@ -452,6 +452,7 @@
         "quay.io/mittwald/kubernetes-replicator",
         "requests",
         "teleport",
+        "traefik",
         "/terraform-aws-modules\/.+/",
         "terraform-docs/terraform-docs",
         "terraform-linters/tflint",
