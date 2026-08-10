@@ -455,6 +455,7 @@
         "pyyaml",
         "quay.io/mittwald/kubernetes-replicator",
         "requests",
+        "/sonatype/nexus3/",
         "teleport",
         "traefik",
         "/terraform-aws-modules\/.+/",
