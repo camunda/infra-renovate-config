@@ -418,6 +418,7 @@
         "/curlimages/curl/",
         "/docker/",
         "/docker.elastic.co/eck/eck-operator/",
+        "eck-operator",
         "/external-dns/",
         "/external-secrets/",
         "europe-west1-docker.pkg.dev/ci-30-162810/main/centos",
