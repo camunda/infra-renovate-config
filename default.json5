@@ -436,6 +436,7 @@
         "/jetstack/cert-manager/",
         "/jimmidyson/configmap-reload/",
         "jinja2",
+        "/json-exporter/",
         "jonasvinther/medusa",
         "kube-prometheus-stack",
         "/kube-state-metrics/",
