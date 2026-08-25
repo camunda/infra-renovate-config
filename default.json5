@@ -319,6 +319,7 @@
         "/camunda_infra-k8s-webhook/",
         "/cloud-sql-proxy/",
         "/conftest/",
+        "container-registry.oracle.com/database/free",
         "/curlimages/curl/",
         "/docker/",
         "/@docusaurus/.*/",
