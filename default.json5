@@ -363,6 +363,7 @@
         "DavidAnson/markdownlint-cli2",
         "mikefarah/yq",
         "node",
+        "nvm-sh/nvm",
         "/opencost/opencost/",
         "/pandas/",
         "/peimanja/artifactory_exporter/",
