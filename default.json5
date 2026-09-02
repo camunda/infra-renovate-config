@@ -339,6 +339,7 @@
         "fluent/fluent-bit",
         "ghcr.io/actions/actions-runner",
         "/goharbor//",
+        "getsops/sops",
         "golang",
         "google-cloud-bigquery",
         "google-cloud-pubsub",
@@ -433,6 +434,7 @@
         "europe-west1-docker.pkg.dev/ci-30-162810/main/centos",
         "fluent/fluent-bit",
         "ghcr.io/actions/actions-runner",
+        "getsops/sops",
         "golang",
         "google-cloud-bigquery",
         "google-cloud-storage",
@@ -537,6 +539,7 @@
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
         "aquasecurity/trivy",
+        "getsops/sops",
         "hadolint/hadolint",
         "hashicorp/terraform",
         "helm/helm",
