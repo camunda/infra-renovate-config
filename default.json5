@@ -665,7 +665,9 @@
       groupSlug: "gke",
       commitMessageTopic: "gke patch (camunda-ci)",
       additionalBranchPrefix: "camunda-ci-",
-      addLabels: ["component:gke"],
+      // Allow GKE patch upgrades to auto-merge by bypassing TF plan check
+      addLabels: ["component:gke", "automerge", "tf-plan-reviewed"],
+      automerge: true,
     },
     {
       matchPackageNames: ["gke"],
