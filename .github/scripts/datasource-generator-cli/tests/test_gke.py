@@ -2,21 +2,112 @@
 Tests for GKE release channel datasource generator.
 """
 
+from datetime import datetime, timedelta, timezone
+
 import pytest
 
+from sources import gke
 from sources.gke import (
     GKE_VERSION_PATTERN,
     GKEChannel,
     Release,
     extract_versions_from_feed,
+    fetch_gke_versions,
     generate_datasource,
     parse_atom_date,
     sort_versions,
 )
 
 
+def _feed(updated: str, version: str = "1.35.6-gke.1710000") -> str:
+    """Build a minimal Atom feed with a single entry."""
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <title>{version} is now available</title>
+    <updated>{updated}</updated>
+    <content>Version {version} is available.</content>
+  </entry>
+</feed>"""
+
+
+class TestFeedFreshness:
+    """Tests for how a frozen release-notes feed is handled."""
+
+    def test_stale_feed_without_api_still_generates(self, monkeypatch):
+        """Generation never blocks on staleness; the caller reports it instead."""
+        stale = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        monkeypatch.setattr(gke, "fetch_feed", lambda url: _feed(stale))
+
+        data = fetch_gke_versions(GKEChannel.REGULAR)
+
+        assert data["releases"][0]["version"] == "1.35.6-gke.1710000"
+        assert data["releases"][0]["releaseTimestamp"] == stale
+
+    def test_fresh_feed_without_api_succeeds(self, monkeypatch):
+        fresh = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        monkeypatch.setattr(gke, "fetch_feed", lambda url: _feed(fresh))
+
+        data = fetch_gke_versions(GKEChannel.REGULAR)
+        assert data["releases"][0]["version"] == "1.35.6-gke.1710000"
+
+
+class TestAuthoritativeApiSource:
+    """Tests for merging the authoritative Container API version list."""
+
+    def test_api_versions_missing_from_feed_are_added(self, monkeypatch):
+        """The regression that caused this change: feed lacked 1.35.7."""
+        stale = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        monkeypatch.setattr(gke, "fetch_feed", lambda url: _feed(stale))
+        monkeypatch.setattr(
+            gke,
+            "fetch_channel_versions_from_api",
+            lambda channel, project, location: ["1.35.7-gke.1150000", "1.35.6-gke.1710000"],
+        )
+
+        data = fetch_gke_versions(GKEChannel.REGULAR, project="p", location="europe-west1")
+
+        versions = [r["version"] for r in data["releases"]]
+        assert versions[0] == "1.35.7-gke.1150000"
+        assert "1.35.6-gke.1710000" in versions
+
+    def test_no_duplicates_when_api_and_feed_overlap(self, monkeypatch):
+        fresh = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        monkeypatch.setattr(gke, "fetch_feed", lambda url: _feed(fresh))
+        monkeypatch.setattr(
+            gke,
+            "fetch_channel_versions_from_api",
+            lambda channel, project, location: ["1.35.6-gke.1710000"],
+        )
+
+        data = fetch_gke_versions(GKEChannel.REGULAR, project="p", location="europe-west1")
+
+        versions = [r["version"] for r in data["releases"]]
+        assert versions.count("1.35.6-gke.1710000") == 1
+
+    def test_feed_timestamps_are_preserved(self, monkeypatch):
+        fresh = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        monkeypatch.setattr(gke, "fetch_feed", lambda url: _feed(fresh))
+        monkeypatch.setattr(
+            gke,
+            "fetch_channel_versions_from_api",
+            lambda channel, project, location: ["1.35.7-gke.1150000"],
+        )
+
+        data = fetch_gke_versions(GKEChannel.REGULAR, project="p", location="europe-west1")
+        by_version = {r["version"]: r for r in data["releases"]}
+
+        assert by_version["1.35.6-gke.1710000"]["releaseTimestamp"] == fresh
+        assert "releaseTimestamp" not in by_version["1.35.7-gke.1150000"]
+
+
 class TestGKEChannel:
     """Tests for GKEChannel enum."""
+
+    def test_api_channel_names(self):
+        """Test that channels map to Container API channel names."""
+        assert GKEChannel.REGULAR.api_channel == "REGULAR"
+        assert GKEChannel.EXTENDED.api_channel == "EXTENDED"
 
     def test_channel_feed_urls(self):
         """Test that each channel has correct feed URL."""

@@ -31,7 +31,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: main
+          # Scheduled runs resolve to main; dispatch runs test the selected branch.
+          ref: ${{ github.ref }}
           # Use a token that can push to main
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -45,12 +46,32 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Import Secrets
+        id: secrets
+        uses: hashicorp/vault-action@v4.0.0
+        with:
+          url: ${{ secrets.VAULT_ADDR }}
+          method: approle
+          roleId: ${{ secrets.VAULT_ROLE_ID }}
+          secretId: ${{ secrets.VAULT_SECRET_ID }}
+          exportEnv: false
+          secrets: |
+            secret/data/products/infra/ci/common BUILDER_INT_TO_K8S_INTERNAL | GCP_CREDENTIALS;
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093  # v3.0.0
+        with:
+          credentials_json: ${{ steps.secrets.outputs.GCP_CREDENTIALS }}
+
       - name: Generate datasources
         working-directory: .github/scripts/datasource-generator-cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GKE_DATASOURCE_GCP_PROJECT: camunda-internal
+          GKE_DATASOURCE_GCP_LOCATION: europe-west1
         run: |
-          python main.py --all --output-dir "$GITHUB_WORKSPACE/datasources"
+          python main.py --all --output-dir "$GITHUB_WORKSPACE/datasources" \
+            --stale-report "$RUNNER_TEMP/stale-datasources.json"
 
       - name: Validate generated datasources
         working-directory: .github/scripts/datasource-generator-cli
@@ -103,6 +124,33 @@ jobs:
         if: inputs.dry-run != true
         id: deployment
         uses: actions/deploy-pages@v5
+
+      # Runs last so fresh datasources are still committed and published.
+      - name: Check datasource freshness
+        env:
+          STALE_REPORT: ${{ runner.temp }}/stale-datasources.json
+        run: |
+          count=$(jq -r '.stale | length' "$STALE_REPORT")
+
+          if [[ "$count" -eq 0 ]]; then
+            echo "Every checked datasource published a release within its threshold."
+            exit 0
+          fi
+
+          echo "$count datasource(s) are stale:"
+          jq -r '.stale[] | "  - \(.name): \(.detail)"' "$STALE_REPORT"
+
+          {
+            echo "### Stale datasources"
+            echo
+            echo "No recent release for:"
+            echo
+            jq -r '.stale[] | "- `\(.name)`: \(.detail)"' "$STALE_REPORT"
+            echo
+            echo "New releases may be silently missing."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          exit 1
 
   notify-on-failure:
     if: failure() && inputs.dry-run != true
