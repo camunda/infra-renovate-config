@@ -1,10 +1,19 @@
 """
 GKE Release Channel Datasource Generator
 
-Fetches GKE versions from GKE release channel RSS feeds
-and generates Renovate-compatible custom datasource JSON files.
+Generates Renovate-compatible custom datasource JSON files for the GKE release
+channels: rapid, regular, stable, extended.
 
-Supports all GKE release channels: rapid, regular, stable, extended.
+Two inputs are combined:
+
+- The GKE Container API (``getServerConfig``) is the authoritative list of the
+  versions a channel actually offers.
+- The release-notes Atom feed only supplies ``releaseTimestamp`` metadata and
+  historical versions the API no longer advertises.
+
+The feed alone is not trustworthy: it is a docs artifact that has silently
+frozen for weeks at a time while GKE kept shipping versions. Staleness of the
+merged result is reported by the caller (see ``staleness``).
 """
 
 import re
@@ -20,6 +29,9 @@ import requests
 
 # Regex pattern for GKE versions (e.g., 1.31.2-gke.1234)
 GKE_VERSION_PATTERN = re.compile(r"\d+\.\d+\.\d+-gke\.\d+")
+
+# Authoritative per-channel version list (validVersions + defaultVersion).
+CONTAINER_SERVER_CONFIG_URL = "https://container.googleapis.com/v1/projects/{project}/locations/{location}/serverConfig"
 
 
 class GKEChannel(str, Enum):
@@ -38,6 +50,11 @@ class GKEChannel(str, Enum):
         from cloud.google.com that intermittently resolves to an HTML page instead.
         """
         return f"https://docs.cloud.google.com/feeds/gke-{self.value}-channel-release-notes.xml"
+
+    @property
+    def api_channel(self) -> str:
+        """Get the channel name as reported by the Container API."""
+        return self.value.upper()
 
     @property
     def description(self) -> str:
@@ -153,6 +170,43 @@ def extract_versions_from_feed(feed_content: str) -> list[Release]:
     return releases
 
 
+def fetch_channel_versions_from_api(
+    channel: GKEChannel,
+    project: str,
+    location: str,
+    timeout: int = 30,
+) -> list[str]:
+    """
+    Fetch the versions a channel currently offers from the GKE Container API.
+
+    This is the authoritative source. Requires Application Default Credentials
+    with the ``container.getServerConfig`` permission (roles/container.viewer).
+    """
+    # Imported lazily so the module stays importable without GCP credentials.
+    import google.auth
+    from google.auth.transport.requests import AuthorizedSession
+
+    credentials, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
+    session = AuthorizedSession(credentials)
+
+    url = CONTAINER_SERVER_CONFIG_URL.format(project=project, location=location)
+    response = session.get(url, timeout=timeout)
+    response.raise_for_status()
+    payload = response.json()
+
+    for entry in payload.get("channels", []):
+        if entry.get("channel") != channel.api_channel:
+            continue
+
+        versions = list(entry.get("validVersions", []))
+        default_version = entry.get("defaultVersion")
+        if default_version and default_version not in versions:
+            versions.append(default_version)
+        return [v for v in versions if GKE_VERSION_PATTERN.fullmatch(v)]
+
+    raise ValueError(f"Channel {channel.api_channel} not found in serverConfig for {project}/{location}")
+
+
 def sort_versions(releases: list[Release]) -> list[Release]:
     """
     Sort releases by version in descending order (newest first).
@@ -175,17 +229,39 @@ def generate_datasource(releases: list[Release]) -> dict:
     return {"releases": [r.to_dict() for r in releases]}
 
 
-def fetch_gke_versions(channel: GKEChannel) -> dict:
+def fetch_gke_versions(
+    channel: GKEChannel,
+    project: Optional[str] = None,
+    location: Optional[str] = None,
+) -> dict:
     """
-    Fetch and generate GKE datasource for a specific channel.
+    Fetch and generate the GKE datasource for a specific channel.
+
+    The Container API provides the authoritative version list; the feed adds
+    release timestamps and older versions the API no longer advertises.
 
     Args:
         channel: The GKE release channel to fetch versions from.
+        project: GCP project used to call the Container API. Without it the
+            feed is the only source.
+        location: GCP location (region) used to call the Container API.
 
     Returns:
         A dict ready to be serialized to JSON.
     """
     feed_content = fetch_feed(channel.feed_url)
     releases = extract_versions_from_feed(feed_content)
+
+    if project and location:
+        api_versions = fetch_channel_versions_from_api(channel, project, location)
+        known = {release.version for release in releases}
+        missing = [version for version in api_versions if version not in known]
+
+        releases.extend(Release(version=version) for version in missing)
+        print(f"  Container API reports {len(api_versions)} version(s) for channel {channel.api_channel}")
+
+        if missing:
+            print(f"  Added {len(missing)} version(s) absent from the feed: {', '.join(sorted(missing))}")
+
     sorted_releases = sort_versions(releases)
     return generate_datasource(sorted_releases)
