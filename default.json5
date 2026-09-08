@@ -659,6 +659,16 @@
     // PATCH updates: separate PR per cluster, automerge
     {
       matchPackageNames: ["gke"],
+      matchFileNames: ["camunda-ci/**"],
+      matchUpdateTypes: ["patch"],
+      groupName: "gke patch (camunda-ci)",
+      groupSlug: "gke",
+      commitMessageTopic: "gke patch (camunda-ci)",
+      additionalBranchPrefix: "camunda-ci-",
+      addLabels: ["component:gke"],
+    },
+    {
+      matchPackageNames: ["gke"],
       matchFileNames: ["camunda-int/**"],
       matchUpdateTypes: ["patch"],
       groupName: "gke patch (camunda-int)",
