@@ -541,6 +541,7 @@
       matchFileNames: ["**/.tool-versions", "**/*.tf", "**/update.sh", "Dockerfile"],
       matchPackageNames: [
         "aquasecurity/trivy",
+        "cli/cli",
         "getsops/sops",
         "hadolint/hadolint",
         "hashicorp/terraform",
