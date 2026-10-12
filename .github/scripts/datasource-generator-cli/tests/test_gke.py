@@ -12,6 +12,7 @@ from sources.gke import (
     GKEChannel,
     Release,
     extract_versions_from_feed,
+    fetch_gke_regional_versions,
     fetch_gke_versions,
     generate_datasource,
     parse_atom_date,
@@ -99,6 +100,41 @@ class TestAuthoritativeApiSource:
 
         assert by_version["1.35.6-gke.1710000"]["releaseTimestamp"] == fresh
         assert "releaseTimestamp" not in by_version["1.35.7-gke.1150000"]
+
+
+class TestRegionalApiSource:
+    """Tests for the regional datasource built from the Container API only."""
+
+    def test_only_api_versions_are_listed(self, monkeypatch):
+        def fail(url):
+            raise AssertionError("feed must not be fetched")
+
+        monkeypatch.setattr(gke, "fetch_feed", fail)
+        monkeypatch.setattr(
+            gke,
+            "fetch_channel_versions_from_api",
+            lambda channel, project, location: ["1.36.4-gke.1391002", "1.36.4-gke.1495002"],
+        )
+
+        data = fetch_gke_regional_versions(GKEChannel.REGULAR, "europe-west1", project="p")
+
+        assert data == {"releases": [{"version": "1.36.4-gke.1495002"}, {"version": "1.36.4-gke.1391002"}]}
+
+    def test_queries_the_given_location(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(
+            gke,
+            "fetch_channel_versions_from_api",
+            lambda channel, project, location: calls.append((channel, project, location)) or [],
+        )
+
+        fetch_gke_regional_versions(GKEChannel.REGULAR, "europe-west1", project="p")
+
+        assert calls == [(GKEChannel.REGULAR, "p", "europe-west1")]
+
+    def test_requires_project(self):
+        with pytest.raises(ValueError, match="europe-west1"):
+            fetch_gke_regional_versions(GKEChannel.REGULAR, "europe-west1")
 
 
 class TestGKEChannel:

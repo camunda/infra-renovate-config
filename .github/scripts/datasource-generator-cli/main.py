@@ -12,7 +12,7 @@ import sys
 from functools import partial
 from pathlib import Path
 
-from sources.gke import GKEChannel, fetch_gke_versions
+from sources.gke import GKEChannel, fetch_gke_regional_versions, fetch_gke_versions
 from sources.yaegi import fetch_yaegi_go_compat
 from staleness import StaleSource, apply_first_seen, check_staleness, warn_stale
 
@@ -49,6 +49,13 @@ DATASOURCE_REGISTRY = {
         "accepts_gke_options": True,
         "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
     },
+    "gke-regular.europe-west1": {
+        "generator": partial(fetch_gke_regional_versions, GKEChannel.REGULAR, "europe-west1"),
+        "output_file": "gke-regular.europe-west1.json",
+        "description": "GKE Regular channel versions available in europe-west1",
+        "accepts_gke_project": True,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+    },
     "yaegi-go-compat": {
         "generator": fetch_yaegi_go_compat,
         "output_file": "yaegi-go-compat.json",
@@ -70,7 +77,11 @@ def generate_datasource(
     generator = config["generator"]
     output_file = output_dir / config["output_file"]
 
-    kwargs = gke_options or {} if config.get("accepts_gke_options") else {}
+    kwargs = {}
+    if config.get("accepts_gke_options"):
+        kwargs = gke_options or {}
+    elif config.get("accepts_gke_project"):
+        kwargs = {"project": (gke_options or {}).get("project")}
 
     print(f"Generating {name} datasource...")
     data = generator(**kwargs)
@@ -140,6 +151,8 @@ Available datasources:
   gke-regular    GKE Regular channel versions
   gke-stable     GKE Stable channel versions
   gke-extended   GKE Extended channel versions
+  gke-regular.europe-west1
+                 GKE Regular channel versions available in europe-west1
 
 Examples:
   %(prog)s --all                    Generate all datasources

@@ -265,3 +265,23 @@ def fetch_gke_versions(
 
     sorted_releases = sort_versions(releases)
     return generate_datasource(sorted_releases)
+
+
+def fetch_gke_regional_versions(
+    channel: GKEChannel,
+    location: str,
+    project: Optional[str] = None,
+) -> dict:
+    """
+    Generate the GKE datasource for a channel from the Container API only.
+
+    Unlike ``fetch_gke_versions``, the feed is ignored: it announces versions
+    before they are rolled out to every region, and GKE rejects those.
+    """
+    if not project:
+        raise ValueError(f"A GCP project is required to query GKE versions in {location}")
+
+    versions = fetch_channel_versions_from_api(channel, project, location)
+    print(f"  Container API reports for channel {channel.api_channel} in {location}: {', '.join(versions)}")
+
+    return generate_datasource(sort_versions([Release(version=version) for version in versions]))
