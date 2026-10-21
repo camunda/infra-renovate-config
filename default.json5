@@ -500,13 +500,12 @@
       addLabels: ["automerge"],
       automerge: true
     },
-    // .tool-versions python feeds actions/setup-python, so only versions that actions/python-versions has built are proposed
+    // .tool-versions python feeds actions/setup-python, so only versions listed in its manifest are proposed
     {
       matchManagers: ["asdf"],
       matchDepNames: ["python"],
-      overrideDatasource: "github-releases",
-      overridePackageName: "actions/python-versions",
-      extractVersion: "^(?<version>\\d+\\.\\d+\\.\\d+)-\\d+$",
+      overrideDatasource: "custom.setup-python",
+      extractVersion: "^(?<version>.+)$", // replaces the asdf default, which expects cpython's v-prefixed tags
       versioning: "semver",
     },
     // asdf-managed golang (.tool-versions) resolves as packageName golang/go
@@ -873,6 +872,13 @@
     "yaegi-go-compat": {
       "defaultRegistryUrlTemplate": "https://camunda.github.io/infra-renovate-config/datasources/yaegi-go-compat.json",
       "format": "json"
+    },
+    // Python versions installable by actions/setup-python
+    "setup-python": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
+      "transformTemplates": [
+        "{\"releases\": [$$[stable = true].{\"version\": version}]}"
+      ]
     },
     // Teleport version datasource
     teleport: {
