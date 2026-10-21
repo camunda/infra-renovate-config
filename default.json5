@@ -500,6 +500,15 @@
       addLabels: ["automerge"],
       automerge: true
     },
+    // .tool-versions python feeds actions/setup-python, so only versions that actions/python-versions has built are proposed
+    {
+      matchManagers: ["asdf"],
+      matchDepNames: ["python"],
+      overrideDatasource: "github-releases",
+      overridePackageName: "actions/python-versions",
+      extractVersion: "^(?<version>\\d+\\.\\d+\\.\\d+)-\\d+$",
+      versioning: "semver",
+    },
     // asdf-managed golang (.tool-versions) resolves as packageName golang/go
     {
       matchManagers: ["asdf"],
