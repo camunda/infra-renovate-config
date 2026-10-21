@@ -18,6 +18,9 @@ jobs:
           filters: |
             datasource-generator-cli:
             - '.github/scripts/datasource-generator-cli/**'
+            - '.github/workflows/tests.yml'
+            - '.github/workflows/renovate-custom-datasources.yml'
+            - '.tool-versions'
 
   datasource-generator-cli:
     needs: changes
