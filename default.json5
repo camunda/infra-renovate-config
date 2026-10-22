@@ -724,24 +724,13 @@
   // https://developer.mend.io/github/camunda/-/settings
   hostRules: [
     {
-      matchHost: "https://europe-west1-docker.pkg.dev/v2/camunda-benchmark/main",
-      authType: "Basic",
-      token: "{{ secrets.INFRA_CAMUNDA_BENCHMARK_GAR_TOKEN }}",
-    },
-    {
-      matchHost: "https://europe-west1-docker.pkg.dev/v2/ci-30-162810/main",
+      // One host-wide rule: Renovate resolves credentials for manifest/digest lookups against
+      // `<host>/v2/` only, so path-scoped rules (one per project) never match them and digest
+      // pins fail with "Could not determine new digest". The camunda-ci SA is granted reader on
+      // the `main` repo of every project (infra-core terraform/*/renovate-gar-access.tf).
+      matchHost: "https://europe-west1-docker.pkg.dev",
       authType: "Basic",
       token: "{{ secrets.INFRA_CAMUNDA_CI_GAR_TOKEN }}",
-    },
-    {
-      matchHost: "https://europe-west1-docker.pkg.dev/v2/camunda-internal/main",
-      authType: "Basic",
-      token: "{{ secrets.INFRA_CAMUNDA_INTERNAL_GAR_TOKEN }}",
-    },
-    {
-      matchHost: "https://europe-west1-docker.pkg.dev/v2/camunda-public/main",
-      authType: "Basic",
-      token: "{{ secrets.INFRA_CAMUNDA_PUBLIC_GAR_TOKEN }}",
     },
     {
       matchHost: "https://registry.camunda.cloud",
