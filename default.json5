@@ -452,6 +452,7 @@
         "/grafana/",
         "hadolint",
         "hadolint/hadolint",
+        "hashicorp/vault",
         "/infra-channel-slack-bot/",
         "/infra-dri-bot/",
         "/jetstack/cert-manager/",
