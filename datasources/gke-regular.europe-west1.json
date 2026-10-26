@@ -1,36 +1,32 @@
 {
   "releases": [
     {
+      "version": "1.37.1-gke.1552000",
+      "releaseTimestamp": "2026-10-26T06:39:55Z"
+    },
+    {
+      "version": "1.36.4-gke.2326000",
+      "releaseTimestamp": "2026-10-26T06:39:55Z"
+    },
+    {
       "version": "1.36.4-gke.2046003",
       "releaseTimestamp": "2026-10-22T06:29:52Z"
     },
     {
-      "version": "1.36.4-gke.2046002",
-      "releaseTimestamp": "2026-10-22T06:29:52Z"
-    },
-    {
-      "version": "1.36.4-gke.1495003",
-      "releaseTimestamp": "2026-10-22T06:29:52Z"
-    },
-    {
-      "version": "1.36.4-gke.1495002",
-      "releaseTimestamp": "2026-10-12T09:54:37Z"
+      "version": "1.35.8-gke.1919000",
+      "releaseTimestamp": "2026-10-26T06:39:55Z"
     },
     {
       "version": "1.35.8-gke.1796000",
       "releaseTimestamp": "2026-10-22T06:29:52Z"
     },
     {
-      "version": "1.35.8-gke.1626001",
-      "releaseTimestamp": "2026-10-12T09:54:37Z"
+      "version": "1.34.12-gke.1153000",
+      "releaseTimestamp": "2026-10-26T06:39:55Z"
     },
     {
       "version": "1.34.12-gke.1011000",
       "releaseTimestamp": "2026-10-22T06:29:52Z"
-    },
-    {
-      "version": "1.34.11-gke.1209000",
-      "releaseTimestamp": "2026-10-12T09:54:37Z"
     }
   ]
 }
