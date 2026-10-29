@@ -134,6 +134,7 @@
       // Traefik and its nginx-ldap-auth sidecar deploy as one unit per cluster
       matchPackageNames: ["traefik", "/nginx-ldap-auth$/"],
       groupName: "Traefik components",
+      separateMajorMinor: true,
       addLabels: ["app:traefik", "component:ingress"],
     },
     {
