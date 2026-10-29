@@ -131,6 +131,13 @@
       addLabels: ["app:cert-manager", "component:ingress"],
     },
     {
+      // Traefik and its nginx-ldap-auth sidecar deploy as one unit per cluster
+      matchPackageNames: ["traefik", "/nginx-ldap-auth$/"],
+      groupName: "Traefik components",
+      separateMajorMinor: true,
+      addLabels: ["app:traefik", "component:ingress"],
+    },
+    {
       matchPackageNames: [
         "/argo-cd/",
         "/argocd/",
@@ -375,6 +382,7 @@
         "markdownlint-cli2",
         "DavidAnson/markdownlint-cli2",
         "mikefarah/yq",
+        "/nginx-ldap-auth$/",
         "node",
         "nvm-sh/nvm",
         "/opencost/opencost/",
@@ -470,6 +478,7 @@
         "markdownlint-cli2",
         "DavidAnson/markdownlint-cli2",
         "mikefarah/yq",
+        "/nginx-ldap-auth$/",
         "node",
         "open-policy-agent/conftest",
         "/opencost/opencost/",
