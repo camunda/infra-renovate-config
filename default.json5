@@ -131,6 +131,12 @@
       addLabels: ["app:cert-manager", "component:ingress"],
     },
     {
+      // Traefik and its nginx-ldap-auth sidecar deploy as one unit per cluster
+      matchPackageNames: ["traefik", "/nginx-ldap-auth$/"],
+      groupName: "Traefik components",
+      addLabels: ["app:traefik", "component:ingress"],
+    },
+    {
       matchPackageNames: [
         "/argo-cd/",
         "/argocd/",
