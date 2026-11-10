@@ -16,8 +16,14 @@ from sources.gke import GKEChannel, fetch_gke_regional_versions, fetch_gke_versi
 from sources.yaegi import fetch_yaegi_go_compat
 from staleness import StaleSource, apply_first_seen, check_staleness, warn_stale
 
-# Every GKE channel ships often enough that a fortnight without a release means the source dried up.
-GKE_STALENESS_THRESHOLD_DAYS = 14
+# Each threshold sits about a week above the longest release gap seen in 2026 (14 days on
+# rapid, regular and extended, 22 days on stable), so only a dried-up source alarms.
+GKE_STALENESS_THRESHOLD_DAYS = {
+    GKEChannel.RAPID: 21,
+    GKEChannel.REGULAR: 21,
+    GKEChannel.STABLE: 30,
+    GKEChannel.EXTENDED: 21,
+}
 
 # Registry of available datasource generators
 DATASOURCE_REGISTRY = {
@@ -26,35 +32,35 @@ DATASOURCE_REGISTRY = {
         "output_file": "gke-rapid.json",
         "description": "GKE Rapid channel versions",
         "accepts_gke_options": True,
-        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS[GKEChannel.RAPID],
     },
     "gke-regular": {
         "generator": partial(fetch_gke_versions, GKEChannel.REGULAR),
         "output_file": "gke-regular.json",
         "description": "GKE Regular channel versions",
         "accepts_gke_options": True,
-        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS[GKEChannel.REGULAR],
     },
     "gke-stable": {
         "generator": partial(fetch_gke_versions, GKEChannel.STABLE),
         "output_file": "gke-stable.json",
         "description": "GKE Stable channel versions",
         "accepts_gke_options": True,
-        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS[GKEChannel.STABLE],
     },
     "gke-extended": {
         "generator": partial(fetch_gke_versions, GKEChannel.EXTENDED),
         "output_file": "gke-extended.json",
         "description": "GKE Extended channel versions",
         "accepts_gke_options": True,
-        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS[GKEChannel.EXTENDED],
     },
     "gke-regular.europe-west1": {
         "generator": partial(fetch_gke_regional_versions, GKEChannel.REGULAR, "europe-west1"),
         "output_file": "gke-regular.europe-west1.json",
         "description": "GKE Regular channel versions available in europe-west1",
         "accepts_gke_project": True,
-        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS,
+        "staleness_threshold_days": GKE_STALENESS_THRESHOLD_DAYS[GKEChannel.REGULAR],
     },
     "yaegi-go-compat": {
         "generator": fetch_yaegi_go_compat,
