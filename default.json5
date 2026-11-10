@@ -408,7 +408,7 @@
         "python",
         "python/cpython",
         "pyyaml",
-        "quay.io/mittwald/kubernetes-replicator",
+        // quay.io/mittwald/kubernetes-replicator excluded: v2.12.5 silently disabled push replication (INC-9081)
         "quay.io/prometheuscommunity/prom-label-proxy",
         "requests",
         "slack-bolt",
@@ -504,7 +504,7 @@
         "PyCQA/pylint",
         "pyrra",
         "pyyaml",
-        "quay.io/mittwald/kubernetes-replicator",
+        // quay.io/mittwald/kubernetes-replicator excluded: v2.12.5 silently disabled push replication (INC-9081)
         "quay.io/prometheuscommunity/prom-label-proxy",
         "requests",
         "/sonatype/nexus3/",
