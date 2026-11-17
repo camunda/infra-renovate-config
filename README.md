@@ -19,6 +19,8 @@ Our [config](/default.json5) has an `automerge` section for `patch` and `minor` 
 
 For these `automerge` dependencies renovate is going to merge it's own PRs without waiting any human approval whatsoever.
 
+⚠️ These lists take no new entries. Each repository declares automerge for its own dependencies in its own Renovate config, backed by its own tests ([camunda/team-infrastructure#1175](https://github.com/camunda/team-infrastructure/issues/1175)). The [`test-gap-closer`](https://github.com/camunda/infra-core/tree/stage/.claude/skills/test-gap-closer) skill covers the tests and the rules.
+
 ### Manual Merges
 If you currently own the `Maintenance DRI` role and need to handle PR reviews of our weekly renovate update message (e.g. [this one](https://camunda.slack.com/archives/CHY2S7KDJ/p1730103656096109)), make sure of the following:
 * Make sure to read the [Confluence Page](https://confluence.camunda.com/display/SRE/Infra+Maintenance+Process+and+DRI+role) about the role itself

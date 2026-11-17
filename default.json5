@@ -301,6 +301,7 @@
       automerge: true,
     },
     // Patches
+    // Closed for new entries: each repo declares its own automerge rules (camunda/team-infrastructure#1175).
     // Those are tested packages, and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
@@ -430,6 +431,7 @@
       automerge: true,
     },
     // Minor versions
+    // Closed for new entries: each repo declares its own automerge rules (camunda/team-infrastructure#1175).
     // Those are tested packages, and we know that they follow the semver convention,
     // but it's fine to have candidate packages to test before move them to minor section.
     {
@@ -556,6 +558,7 @@
       automerge: true
     },
     // Create PRs and automerge mentioned components afterward
+    // Closed for new entries: each repo declares its own automerge rules (camunda/team-infrastructure#1175).
     // Those are tested packages
     {
       matchUpdateTypes: ["major"],
