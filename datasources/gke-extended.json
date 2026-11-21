@@ -345,6 +345,10 @@
       "releaseTimestamp": "2026-04-29T00:00:00Z"
     },
     {
+      "version": "1.33.13-gke.2480000",
+      "releaseTimestamp": "2026-11-21T06:17:36Z"
+    },
+    {
       "version": "1.33.13-gke.2398000",
       "releaseTimestamp": "2026-11-13T00:00:00Z"
     },
@@ -471,6 +475,10 @@
     {
       "version": "1.33.8-gke.1169000",
       "releaseTimestamp": "2026-04-29T00:00:00Z"
+    },
+    {
+      "version": "1.32.13-gke.3169000",
+      "releaseTimestamp": "2026-11-21T06:17:36Z"
     },
     {
       "version": "1.32.13-gke.3070000",
