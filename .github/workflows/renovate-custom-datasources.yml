@@ -22,6 +22,7 @@ jobs:
       cancel-in-progress: false
     permissions:
       contents: write  # to push changes to the repository
+      id-token: write  # mint GitHub OIDC token for Vault JWT auth
     outputs:
       publish: ${{ steps.upload.outcome == 'success' }}
     steps:
