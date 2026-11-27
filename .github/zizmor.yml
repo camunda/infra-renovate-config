@@ -1,0 +1,17 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        actions/*: ref-pin
+        github/*: ref-pin
+        pre-commit/*: ref-pin
+        camunda/infra-global-github-actions/*: hash-pin
+        "*": hash-pin
+    ignore: []
+  # TODO: re-enable once the existing findings are fixed
+  archived-uses:
+    disable: true
+  artipacked:
+    disable: true
+  excessive-permissions:
+    disable: true
