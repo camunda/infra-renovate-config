@@ -1,0 +1,11 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        actions/*: ref-pin
+        github/*: ref-pin
+        camunda/infra-global-github-actions/*: hash-pin
+        "*": hash-pin
+    ignore: []
+  excessive-permissions:
+    disable: true
