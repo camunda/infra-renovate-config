@@ -1,6 +1,8 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>camunda/infra-renovate-config:default.json5"
+    "github>camunda/infra-renovate-config:default.json5",
+    // Version-tracks camunda/infra-global-github-actions sub-action pins (# <family>-X.Y.Z).
+    "github>camunda/infra-global-github-actions:renovate-action-versions.json5"
   ],
 }
